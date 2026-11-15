@@ -137,6 +137,48 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
+      - name: perf hotspot profiling (direct worker)
+        if: always()
+        run: |
+          set -e
+          sudo sysctl -w kernel.perf_event_paranoid=1 || sudo sysctl -w kernel.perf_event_paranoid=-1 || true
+          PERF_BIN="$(command -v perf || true)"
+          if [ -z "$PERF_BIN" ]; then
+            sudo apt-get install -y -qq linux-tools-common linux-tools-generic linux-tools-$(uname -r) 2>/dev/null || \
+              sudo apt-get install -y -qq linux-tools-common linux-tools-generic || true
+            PERF_BIN="$(command -v perf || true)"
+          fi
+          if [ -z "$PERF_BIN" ]; then
+            echo "perf unavailable on this runner — skipped"; exit 0
+          fi
+          "$PERF_BIN" --version || true
+          source "$HOME/.cargo/env"
+          WORKER=target/challenge-candidate/challenge/flock-benchmark-worker
+          rm -rf /tmp/scratch-p && mkdir -p /tmp/scratch-p
+          SEED=$(echo "${{ github.event.inputs.seeds }}" | cut -d, -f1)
+          echo "=== perf stat (whole worker run) ==="
+          echo "$SEED" | timeout 600 perf stat -e cycles,instructions,branches,branch-misses,cache-references,cache-misses,LLC-load-misses,LLC-store-misses,dTLB-load-misses,uops_dispatched_port.port_0,uops_dispatched_port.port_1,uops_dispatched_port.port_2,uops_dispatched_port.port_3,uops_dispatched_port.port_4,uops_dispatched_port.port_5,uops_dispatched_port.port_6,uops_dispatched_port.port_7,uops_dispatched_port.port_8,uops_dispatched_port.port_9,uops_dispatched_port.port_10 \
+            -- "$WORKER" "${{ github.event.inputs.log2 }}" /tmp/ready-p /tmp/proof-p 2>&1 | tail -40 || echo "(perf stat failed)"
+          rm -f /tmp/proof-p /tmp/ready-p
+          echo "=== perf record hotspots ==="
+          rm -rf /tmp/scratch-p && mkdir -p /tmp/scratch-p
+          echo "$SEED" | timeout 900 perf record -F 700 -g --call-graph dwarf -- \
+            "$WORKER" "${{ github.event.inputs.log2 }}" /tmp/ready-p /tmp/proof-p 2>&1 | tail -5 || true
+          rm -f /tmp/proof-p /tmp/ready-p
+          perf report --stdio --no-children --sort symbol --percent-limit 0.7 2>/dev/null | \
+            grep -vE "^#|^$|^\s*$" | head -60 | tee perf-report.txt || echo "(perf report failed)"
+
+      - name: Perf summary
+        if: always()
+        run: |
+          {
+            echo "## perf hotspots — **directional only (4 vCPU), NOT comparable to official SPR**"
+            echo
+            echo '```'
+            cat perf-report.txt 2>/dev/null | head -50 || echo "no perf report"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Upload trace
         if: always()
         uses: actions/upload-artifact@v4
