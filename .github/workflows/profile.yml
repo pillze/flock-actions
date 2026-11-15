@@ -65,21 +65,19 @@ jobs:
         env:
           FLOCK_GAP_TIMING: "1"
           FLOCK_ABS_TRACE: "1"
-          FLOCK_REQUIRE_SANDBOX: "0"
+          RAYON_NUM_THREADS: ${{ github.event.inputs.threads }}
         run: |
           source "$HOME/.cargo/env"
           WORKER=target/challenge-candidate/challenge/flock-benchmark-worker
           ls -la "$WORKER"
-          mkdir -p /tmp/wscratch
+          rm -f worker-trace.log
           for SEED in $(echo "${{ github.event.inputs.seeds }}" | tr ',' ' '); do
-            echo "=== SEED $SEED ==="
-            rm -rf /tmp/wscratch && mkdir -p /tmp/wscratch
-            echo "$SEED" | timeout 600 "$WORKER" /tmp/wscratch /tmp/wscore.json /tmp/wsummary.md \
-              "${{ github.event.inputs.log2 }}" "${{ github.event.inputs.threads }}" 0 1 \
-              2>&1 | tee -a worker-trace.log || echo "(worker exit=$? for seed $SEED)"
-            echo "--- proof files ---"; ls -la /tmp/wscratch/ 2>/dev/null | head -5
-            echo "--- score ---"; cat /tmp/wscore.json 2>/dev/null | head -c 600; echo
-            rm -f /tmp/wscore.json
+            echo "=== SEED $SEED (threads=${{ github.event.inputs.threads }}) ===" | tee -a worker-trace.log
+            echo "$SEED" | timeout 900 "$WORKER" "${{ github.event.inputs.log2 }}" \
+              /tmp/ready-file /tmp/proof.bin 2>&1 | tee -a worker-trace.log \
+              || echo "(worker exit=$? for seed $SEED)" | tee -a worker-trace.log
+            echo "--- proof ---"; ls -la /tmp/proof.bin 2>/dev/null | tee -a worker-trace.log
+            rm -f /tmp/proof.bin /tmp/ready-file
           done
 
       - name: Phase summary
