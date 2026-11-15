@@ -15,39 +15,44 @@ goal = **higher is better**, current best **2,223,779.61521497**, min improvemen
   seed+top ~32.4 ms | deep NTT ~31.8 ms | ZC round 2 ~16.1 ms | ZC round 1 ~13.4 ms |
   Ligerito open ~7.7 ms (grind ~0.84 ms) | lincheck ~5.6-5.9 ms | rest = rounds 3-5, commits, publish.
 
-## BLOCKER - CI runner is not a valid A/B environment (2026-11-15)
-Run `43676621687` (bench.yml, no patch) completed its Benchmark step successfully:
+## CI runner pool is HETEROGENEOUS — must check CPU per run
+Two runs on `ubuntu-latest`, same day, different silicon:
 
-| metric | value |
-|---|---|
-| score | **21,042.188** compressions/s |
-| median trial | 12.458 s |
-| threads | 4 |
-| proof bytes | 438,863 |
-| verified | **true** |
+| run | workflow | CPU | avx512f | gfni | score |
+|---|---|---|---|---|---|
+| 43676621687 | bench | **AMD EPYC 7763 (Zen 3)** | NO | NO | 21,042.19 (12.46 s/trial) |
+| 43681831586 | profile | **Intel Xeon 6973P-C** | yes | yes | n/a (trace only) |
 
-Runner hardware from the job log:
-```
-Model name: AMD EPYC 7763 64-Core Processor
-avx512f: NO   avx512dq: NO   avx512vbmi: NO   gfni: NO   vpclmulqdq: yes
-Mem: 15Gi
-```
+**Consequence:** a bench run that lands on Zen 3 measures the **scalar fallback path**
+(138 `avx512f`-gated fns + GFNI kernels all bypassed) and is worthless as an A/B — the
+106x gap vs official is the fallback, not the thread count. A run that lands on the Intel
+6973P-C runs the real optimized path. **Every future bench dispatch must be checked for
+`Model name` before its number is trusted; discard Zen 3 runs.**
 
-**Diagnosis:** GitHub's `ubuntu-latest` pool landed on an **AMD EPYC 7763 (Zen 3)**, which has
-**no AVX-512 and no GFNI**. The record code has **138 `avx512f`-gated functions** plus GFNI
-kernels; on this runner every one of them falls through to the scalar/portable fallback.
-That is why 262,144 compressions take 12.46 s here vs ~0.118 s on the official SPR box -
-a **~106x gap**, which no 4-vs-16-vCPU difference can explain. The 4x thread count accounts
-for at most ~4x.
+## VALID PROFILE — Intel Xeon 6973P-C, 4 threads, log2=18 (run 43681831586)
+77 warm traces captured via `FLOCK_GAP_TIMING=1`. Median proof: **472.2 ms**
+(min 457.4, max 897.5). Official is ~117 ms on 16 threads; 472/117 = **4.03x**, i.e. almost
+exactly the 16->4 thread ratio. **The 4-thread Intel runner is a valid proportional A/B rig.**
 
-**Consequence:** every A/B measured on this runner is measuring the fallback path, not the
-optimized path that the official score reflects. A patch that improves the AVX-512/GFNI kernels
-would show **zero or negative** signal here, and a patch that helps the fallback would show
-signal that is meaningless for ranking. **CI A/B is therefore worthless for this task** until
-the runner has AVX-512+GFNI (i.e. a self-hosted SPR/Ice Lake runner or a VPS on such a CPU).
+Warm-trace breakdown (median-ish trace, total 477.7 ms):
 
-Correctness signal from CI is still usable: `verified: true` with a 438,863-byte proof
-(under the 500 KB cap) confirms the record checkout builds and verifies end-to-end.
+| phase | ms | % | official ms | scale vs official |
+|---|---|---|---|---|
+| ntt: seed+top fused pass | 128.1 | 26.8% | 32.4 | 3.95x |
+| ntt: deep pass | 127.7 | 26.7% | 31.8 | 4.02x |
+| zc: round2 fused fold | 74.1 | 15.5% | 16.1 | 4.60x |
+| zc: rounds 3+4 composed | 54.3 | 11.4% | (in "rest") | - |
+| r1: AB closure | 26.6 | 5.6% | 13.4 (r1 total) | - |
+| open: ligerito recursive | 26.7 | 5.6% | 7.7 | 3.46x |
+| lincheck | 20.2 | 4.2% | 5.6-5.9 | 3.50x |
+| zc: tail rounds | 12.8 | 2.7% | - | - |
+| r1: C closure | 4.9 | 1.0% | - | - |
+| padding built | 1.9 | 0.4% | - | - |
+
+**Reading:** NTT (seed+top + deep) = **53.5%** of proof time, scaling at exactly 4.0x — pure
+compute/bandwidth bound, no scheduling slack. Everything else scales at 3.5-4.6x. Nothing is
+an outlier; the code is well balanced across phases. `bind_statement` costs 229 ms on the
+**cold** first prove and 0.007 ms warm — it is not a lever.
 
 ## BLOCKER - Freestyle VPS not accessible from this account
 ```
@@ -58,18 +63,18 @@ Teams you can use:
   GLITCH's Team  b1e383f8-0cbf-4599-9e9c-d56deab236cc  acct-00d9bd3174e24a94ba52c4dacc2fbbd2
 ```
 `npx freestyle@latest vm list` on the authenticated account returns **"No VMs."**
-
-So the CLI is logged into a **different Freestyle account** (`acct-00d9bd31...`, "GLITCH's Team")
-than the one owning the target VM (`acct-35d244fe...`). Per the hard limits I did not attempt to
-log in or switch accounts. **CPU/RAM/OS of the VPS: NOT VERIFIED** - could not connect.
+The CLI is logged into a different Freestyle account than the one owning the target VM.
+Per the hard limits I did not attempt to log in or switch accounts.
+**CPU/RAM/OS of the VPS: NOT VERIFIED** - could not connect.
 
 ## Attempt log
 | # | Idea | Files changed | Safety | Verification done / not done | Result (directional) | Gap to 2,334,969 | Risk | Decision |
 |---|------|---------------|--------|------------------------------|----------------------|------------------|------|----------|
-| 1 | Hugepage/TLB lever | none (no patch written) | n/a | Source study only (no build/run) | **Discarded pre-implementation**: record already has MADV_HUGEPAGE at alloc >=2 MiB + prewarm + MADV_COLLAPSE + recycled-block skip (`lib.rs:608-653`, `scratch.rs:282-284`, `recycle_alloc.rs:197-200`) | n/a | - | discard; move to profile-driven hunt |
-| 2 | Prover/verifier parameter slack | none | n/a | Source study: `verifier.rs:53-128` shows `pcs_params` passed in from trusted side; README pins params to trusted commitment | Assumed dead (0-2% residual in encodings only) | n/a | medium | downgraded; audit only if profile hunt stalls |
-| 3 | Establish CI baseline + validate CI as A/B rig | none | read-only | Bench run 43676621687 completed, `verified: true`, score 21,042.188 | **CI rig invalid**: runner is Zen 3, no AVX-512/GFNI -> measures fallback path only (106x gap) | n/a | - | **CI A/B retired** for ranking work |
-| 4 | Establish VPS as profiling/A-B host | none | read-only | `vm ssh` failed: team/account mismatch; `vm list` -> "No VMs" | **Blocked**: VM not owned by authenticated Freestyle account | n/a | - | **blocked on user** |
+| 1 | Hugepage/TLB lever | none | n/a | Source study only | **Discarded**: record already has MADV_HUGEPAGE at alloc >=2 MiB + prewarm + MADV_COLLAPSE + recycled-block skip (`lib.rs:608-653`, `scratch.rs:282-284`, `recycle_alloc.rs:197-200`) | n/a | - | discard |
+| 2 | Prover/verifier parameter slack | none | n/a | Source study: `verifier.rs:53-128` `pcs_params` from trusted side; README pins params | Assumed dead (0-2% residual) | n/a | medium | downgraded |
+| 3 | Validate CI as A/B rig | none | read-only | Bench run 43676621687 = Zen 3, fallback path, invalid. Profile run 43681831586 = Intel 6973P-C, valid | **Rig validated conditionally**: must verify CPU per run | n/a | - | keep, gate on CPU |
+| 4 | Profile-driven slack hunt | none | read-only | 77 warm traces, full phase breakdown (table above) | **No slack found**: NTT 53.5% at exactly 4.0x scaling; all phases 3.5-4.6x; balanced | n/a | - | **negative result, logged** |
+| 5 | Establish VPS as A/B host | none | read-only | `vm ssh` failed: account mismatch; `vm list` -> "No VMs" | **Blocked** | n/a | - | **blocked on user** |
 
 ## Rule for every attempt
 One change per attempt; oracle first (baseline proof bytes); differential tests on boundary sizes;
@@ -79,6 +84,6 @@ measurements directional.
 ## Open questions for the user
 1. Freestyle: which account owns `vm-fe95dfd9bc074430b4d53d893d8445c3`? The CLI here is on
    `acct-00d9bd3174e24a94ba52c4dacc2fbbd2` ("GLITCH's Team") and sees no VMs.
-2. CI: `ubuntu-latest` is giving Zen 3 (no AVX-512/GFNI). Options: (a) self-hosted runner on
-   AVX-512 hardware, (b) a VPS on Ice Lake/Sapphire Rapids, (c) accept that no remote A/B is
-   possible and work from source analysis only.
+2. CI: `ubuntu-latest` is a mixed pool. Zen 3 draws are unusable. Options: (a) self-hosted
+   runner on AVX-512 hardware, (b) a VPS on Ice Lake/Sapphire Rapids, (c) re-dispatch bench
+   until an Intel draw lands and discard the rest.
