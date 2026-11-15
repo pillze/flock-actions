@@ -147,8 +147,8 @@ jobs:
               echo "--- arm $ARM ---"
               run_arm "$ARM"
               python3 -c "
-import json; d=json.load(open('/tmp/score-$ARM.json'))
-print('arm $ARM round $ROUND: score', round(d['score'],2), 'median', round(d['metrics']['median_seconds'],6))" || true
+          import json; d=json.load(open('/tmp/score-$ARM.json'))
+          print('arm $ARM round $ROUND: score', round(d['score'],2), 'median', round(d['metrics']['median_seconds'],6))" || true
             done
           done
 
