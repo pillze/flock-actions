@@ -1,0 +1,97 @@
+name: flock-tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: "Challenge repo commit to test"
+        required: false
+        default: "03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd"
+      patch_file:
+        description: "Optional patch file path in THIS repo to apply (git apply)"
+        required: false
+        default: ""
+      test_filter:
+        description: "cargo test filter (empty = default suites)"
+        required: false
+        default: ""
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Runner info
+        run: |
+          lscpu | grep -E 'Model name|^CPU\(s\)' || true; free -h | head -2
+
+      - name: Checkout challenge repo (pinned commit)
+        uses: actions/checkout@v4
+        with:
+          repository: Layr-Labs/flock-challenge-multi
+          ref: ${{ github.event.inputs.commit }}
+          persist-credentials: false
+
+      - name: Apply patch (optional)
+        if: ${{ github.event.inputs.patch_file != '' }}
+        run: |
+          set -e
+          git apply --check "${{ github.event.inputs.patch_file }}"
+          git apply "${{ github.event.inputs.patch_file }}"
+          git diff --stat
+
+      - name: Install bwrap
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq bubblewrap
+
+      - name: Cache cargo + rustup
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.rustup/toolchains
+          key: flock-${{ github.event.inputs.commit }}-v1
+          restore-keys: flock-
+
+      - name: Setup
+        run: ./setup.sh
+
+      - name: Build tests (challenge profile)
+        run: |
+          source "$HOME/.cargo/env"
+          CARGO_INCREMENTAL=0 CARGO_NET_OFFLINE=true RUSTFLAGS="-C target-cpu=native" \
+            cargo "+1.97.0" build --locked --offline --profile challenge --tests \
+            --manifest-path Cargo.toml
+
+      - name: Run correctness suites
+        env:
+          FLOCK_REQUIRE_SANDBOX: "0"
+        run: |
+          source "$HOME/.cargo/env"
+          FILTER="${{ github.event.inputs.test_filter }}"
+          echo "=== flock-core lib tests ==="
+          cargo "+1.97.0" test --locked --offline --profile challenge -p flock-core --lib -- $FILTER 2>&1 | tee core-tests.log | tail -40
+          echo "=== flock-prover lib tests ==="
+          cargo "+1.97.0" test --locked --offline --profile challenge -p flock-prover --lib -- $FILTER 2>&1 | tee prover-tests.log | tail -40
+
+      - name: Job summary
+        if: always()
+        run: |
+          {
+            echo "## Test result — correctness evidence only (no timing claims)"
+            echo
+            echo "- patch_file: \`${{ github.event.inputs.patch_file }}\`"
+            echo "- commit: \`${{ github.event.inputs.commit }}\`"
+            echo '```'
+            grep -E "test result|FAILED|passed" core-tests.log prover-tests.log 2>/dev/null | tail -20 || echo "logs missing (step failed)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs-${{ github.run_id }}
+          path: |
+            core-tests.log
+            prover-tests.log
