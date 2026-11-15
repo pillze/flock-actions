@@ -105,10 +105,7 @@ jobs:
           echo "=== score.json ==="
           cat score.json 2>/dev/null || echo "NO SCORE (run failed)"
           if [ -f score.json ]; then
-            python3 -c "
-import json; d=json.load(open('score.json')); m=d['metrics']
-print(f\"SCORE: {d['score']:.2f}\")
-print(f\"median: {m['median_seconds']:.6f}s threads: {m['threads']} proof: {m['proof_bytes']}B verified: {m['verified']}\")"
+            python3 -c "import json; d=json.load(open('score.json')); m=d['metrics']; print('SCORE:', d['score']); print('median_s:', m['median_seconds'], 'threads:', m['threads'], 'proof_B:', m['proof_bytes'], 'verified:', m['verified'])"
           fi
           echo "=== scripts/ (for differential tooling) ==="
           ls -la scripts/ 2>/dev/null || true
