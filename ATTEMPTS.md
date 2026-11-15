@@ -87,3 +87,16 @@ measurements directional.
 2. CI: `ubuntu-latest` is a mixed pool. Zen 3 draws are unusable. Options: (a) self-hosted
    runner on AVX-512 hardware, (b) a VPS on Ice Lake/Sapphire Rapids, (c) re-dispatch bench
    until an Intel draw lands and discard the rest.
+
+## Submission filed (2026-11-15, user-ordered)
+- **ae5cb280-ebba-4b0c-ad3c-8e4b8c530eb7** (pillze) = exact published tree of leech1996's `748eb344`
+  (restored via platform `yukon reset` from candidate commit `44fd76b`), dependencies declared
+  (`748eb344`, `0194c7d2`), full disclosure note (8.1 KiB).
+- **Result: rejected.** Official draw of THIS filing: **2,211,042** — BELOW the record, while the
+  byte-identical source drew **2,233,956** for leech1996 hours earlier.
+- **Finding: official draw spread for byte-identical trees ≈ 1.0%** (2,211,042 vs 2,233,956).
+  Consequence: any submission needs a REAL mechanism of ≥1.5–2% mean effect to clear the +1% gate
+  reliably; ±0.5–1% draw noise eats smaller margins. (Notes' claimed ±0.25–0.45% underestimates this.)
+- Percentage correction for the record: platform-displayed "+x%" figures are vs the LAUNCH baseline
+  (~400,453), not vs the current record. True record-relative gains of recent near-misses:
+  leech1996 +0.46%, H3m0rv1ch1 +0.22%, kaankolcu +0.18/+0.23%, e-man07 redraw +0.32%.
