@@ -1,0 +1,204 @@
+name: flock-ab
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_commit:
+        description: "Base (record) commit"
+        required: false
+        default: "03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd"
+      cand_commit:
+        description: "Candidate commit (built in a worktree; leave empty to use patch_file)"
+        required: false
+        default: ""
+      patch_file:
+        description: "Patch file path in THIS repo applied on top of base"
+        required: false
+        default: ""
+      patch_url:
+        description: "Raw URL of patch to apply on top of base"
+        required: false
+        default: ""
+      log2:
+        description: "BLAKE3_LOG2 per arm"
+        required: false
+        default: "18"
+      threads:
+        description: "Threads per arm"
+        required: false
+        default: "4"
+      warmup:
+        description: "Warmup trials per arm"
+        required: false
+        default: "2"
+      runs:
+        description: "Measured trials per arm"
+        required: false
+        default: "10"
+      rounds:
+        description: "Interleaved ABBA rounds"
+        required: false
+        default: "3"
+
+jobs:
+  ab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Hardware info + flag gate
+        run: |
+          lscpu | grep -E 'Model name|^CPU\(s\)' || true; free -h | head -2
+          missing=0
+          for f in avx512f avx512dq avx512vbmi gfni vpclmulqdq; do
+            grep -qw "$f" /proc/cpuinfo || { echo "MISSING FLAG: $f"; missing=1; }
+          done
+          if [ "$missing" = 1 ]; then
+            echo "::error::Runner lacks AVX-512/GFNI — re-dispatch to land on a capable runner."
+            exit 1
+          fi
+          lscpu | grep "Model name" > /tmp/cpu-model.txt
+          cat /tmp/cpu-model.txt
+
+      - name: Checkout base (record) tree
+        uses: actions/checkout@v4
+        with:
+          repository: Layr-Labs/flock-challenge-multi
+          ref: ${{ github.event.inputs.base_commit }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Cache cargo + rustup
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.rustup/toolchains
+          key: flock-ab-v1
+          restore-keys: flock-ab-v1
+
+      - name: Setup + build base worker
+        run: |
+          ./setup.sh
+          WORKER=target/challenge-candidate/challenge/flock-benchmark-worker
+          cp "$WORKER" /tmp/worker-base
+          echo "base worker: $(sha256sum /tmp/worker-base | cut -c1-16)"
+
+      - name: Build candidate worker
+        run: |
+          set -e
+          CAND="${{ github.event.inputs.cand_commit }}"
+          if [ -n "$CAND" ]; then
+            echo "=== candidate: commit $CAND (worktree) ==="
+            git worktree add /tmp/cand "$CAND"
+            source "$HOME/.cargo/env"
+            CARGO_INCREMENTAL=0 CARGO_NET_OFFLINE=true RUSTFLAGS="-C target-cpu=native" \
+              cargo "+1.97.0" build --locked --offline --profile challenge \
+              --manifest-path /tmp/cand/Cargo.toml --target-dir /tmp/cand/target \
+              -p flock-benchmark-worker
+            cp /tmp/cand/target/challenge-candidate/challenge/flock-benchmark-worker /tmp/worker-cand
+          else
+            SRC=""
+            if [ -n "${{ github.event.inputs.patch_url }}" ]; then SRC="url"; fi
+            if [ -n "${{ github.event.inputs.patch_file }}" ]; then SRC="file"; fi
+            [ -n "$SRC" ] || { echo "::error::No candidate given (cand_commit or patch)"; exit 1; }
+            if [ "$SRC" = "url" ]; then
+              curl -fsSL "${{ github.event.inputs.patch_url }}" -o /tmp/ab.patch
+            else
+              cp "${{ github.event.inputs.patch_file }}" /tmp/ab.patch
+            fi
+            echo "=== patch stat ==="
+            git apply --stat /tmp/ab.patch || true
+            git apply --check /tmp/ab.patch
+            git apply /tmp/ab.patch
+            git diff --stat | tail -5
+            source "$HOME/.cargo/env"
+            CARGO_INCREMENTAL=0 CARGO_NET_OFFLINE=true RUSTFLAGS="-C target-cpu=native" \
+              cargo "+1.97.0" build --locked --offline --profile challenge \
+              --manifest-path Cargo.toml --target-dir target \
+              -p flock-benchmark-worker
+            cp target/challenge-candidate/challenge/flock-benchmark-worker /tmp/worker-cand
+            echo "=== restoring base tree ==="
+            git checkout -- . 2>/dev/null || true
+          fi
+          echo "cand worker:  $(sha256sum /tmp/worker-cand | cut -c1-16)"
+
+      - name: Interleaved ABBA arms through the trusted verifier
+        run: |
+          set -e
+          source "$HOME/.cargo/env"
+          VERIFIER=benchmark-tools/trusted/flock_benchmark_verifier
+          (cd benchmark-tools/trusted && sha256sum -c SHA256SUMS)
+          L2="${{ github.event.inputs.log2 }}"; TH="${{ github.event.inputs.threads }}"
+          WU="${{ github.event.inputs.warmup }}"; RN="${{ github.event.inputs.runs }}"
+          RD="${{ github.event.inputs.rounds }}"
+          mkdir -p results /tmp/scratch
+          run_arm() {  # $1=tag
+            rm -rf /tmp/scratch; mkdir -p /tmp/scratch
+            rm -f /tmp/score-$1.json
+            "$VERIFIER" "/tmp/worker-$1" /tmp/scratch "/tmp/score-$1.json" \
+              /tmp/summary-$1.md "$L2" "$TH" "$WU" "$RN"
+            cp "/tmp/score-$1.json" "results/score-$1-r${ROUND}.json"
+          }
+          for ROUND in $(seq 1 "$RD"); do
+            if [ $((ROUND % 2)) -eq 1 ]; then ORDER="base cand"; else ORDER="cand base"; fi
+            echo "=== round $ROUND order: $ORDER ==="
+            for ARM in $ORDER; do
+              echo "--- arm $ARM ---"
+              run_arm "$ARM"
+              python3 -c "
+import json; d=json.load(open('/tmp/score-$ARM.json'))
+print('arm $ARM round $ROUND: score', round(d['score'],2), 'median', round(d['metrics']['median_seconds'],6))" || true
+            done
+          done
+
+      - name: Paired summary
+        if: always()
+        run: |
+          python3 - <<'PYEOF' > /tmp/ab-summary.md
+          import json, glob, statistics as st
+          def collect(tag):
+              out = []
+              for f in sorted(glob.glob(f'results/score-{tag}-r*.json')):
+                  d = json.load(open(f))
+                  out.append((f, d['score'], d['metrics']['median_seconds']))
+              return out
+          base = collect('base'); cand = collect('cand')
+          print("## Paired A/B — **directional only, NOT comparable to the official 16-vCPU SPR score**")
+          print()
+          print(open('/tmp/cpu-model.txt').read().strip())
+          print()
+          print(f"inputs: log2=${{ github.event.inputs.log2 }} threads=${{ github.event.inputs.threads }} "
+                f"warmup=${{ github.event.inputs.warmup }} runs=${{ github.event.inputs.runs }} "
+                f"rounds=${{ github.event.inputs.rounds }} cand_commit=`${{ github.event.inputs.cand_commit }}` "
+                f"patch_file=`${{ github.event.inputs.patch_file }}`")
+          print()
+          print("| arm | per-round scores | median | median trial s |")
+          print("|---|---|---|---|")
+          for tag, rows in (("base", base), ("cand", cand)):
+              scores = [r[1] for r in rows]
+              meds = [r[2] for r in rows]
+              print(f"| {tag} | {[round(s,1) for s in scores]} | "
+                    f"{st.median(scores) if scores else 'n/a'} | {st.median(meds) if meds else 'n/a'} |")
+          if base and cand and len(base) == len(cand):
+              print()
+              print("Paired per-round ratios (cand/base score):")
+              ratios = []
+              for (fb, sb, mb), (fc, sc, mc) in zip(base, cand):
+                  if sb > 0 and sc > 0:
+                      r = sc / sb
+                      ratios.append(r)
+                      print(f"- {fb.split('-r')[-1]}: {round(r,5)} ({'+' if r>=1 else ''}{round((r-1)*100,2)}%)")
+              if ratios:
+                  g = st.median(ratios)
+                  print(f"\n**Median paired delta: {round((g-1)*100,3)}%** (cand throughput vs base)")
+          PYEOF
+          cat /tmp/ab-summary.md
+          cat /tmp/ab-summary.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ab-results-${{ github.run_id }}
+          path: results/
