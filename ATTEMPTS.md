@@ -100,3 +100,26 @@ measurements directional.
 - Percentage correction for the record: platform-displayed "+x%" figures are vs the LAUNCH baseline
   (~400,453), not vs the current record. True record-relative gains of recent near-misses:
   leech1996 +0.46%, H3m0rv1ch1 +0.22%, kaankolcu +0.18/+0.23%, e-man07 redraw +0.32%.
+
+## Paired A/B calibration results (2026-11-15, same-job ABBA through pinned verifier)
+- **A/A (identical binaries, Intel 8573C, 2 rounds x (2+10))**: paired deltas -2.50% / +1.10%,
+  median **-0.704%** for identical code → noise floor ~±0.7-2.5% at this budget. Methodology works
+  end-to-end (builds, ABBA arms, verifier, parsing, summary) but cannot resolve <1% effects
+  without much larger budgets.
+- **record vs leech-tree (AMD EPYC 9V74 Zen 4, 3 rounds)**: paired deltas -5.8% / -0.74% / +0.92%,
+  median **-0.74%**. The leech tree's officially +0.46% (SPR 16T) does NOT transfer to Zen 4 4T:
+  its mechanisms are scheduling-sensitive (keep-warm guard, stage colors, slot pads), tuned to
+  SPR-16T topology. Conclusion: that composition cannot reliably clear the +1% gate anywhere.
+
+## Final session state (2026-11-15)
+- Record unchanged: 2,223,779.61521497 (e-man07, 7552101, commit 03e70fa). Gate: 2,246,017.4 (+1%).
+  User target: 2,334,968.6 (+5%).
+- No mechanism reaching +1% was found or validated. Official draws of identical trees spread ~1%;
+  best published near-miss is +0.46% and is topology-bound; every structural idea generated in
+  this session is already implemented in the record; CI noise floor blocks resolving <1% effects
+  at affordable budgets.
+- Remaining untried directions (require deep kernel work + large measurement budgets):
+  round-2 fused-fold kernel restructuring (15% of proof, slightly super-linear scaling suggests
+  a memory component worth probing at 16T), Ligerito-open serial-section elimination (2.9x
+  sub-linear scaling = serial fraction worth ~3% if removable), and NTT butterfly alternative
+  forms beyond the 3/5/6-CLMUL family.
