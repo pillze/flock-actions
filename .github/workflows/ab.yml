@@ -96,7 +96,7 @@ jobs:
               cargo "+1.97.0" build --locked --offline --profile challenge \
               --manifest-path /tmp/cand/Cargo.toml --target-dir /tmp/cand/target \
               -p flock-benchmark-worker
-            cp /tmp/cand/target/challenge-candidate/challenge/flock-benchmark-worker /tmp/worker-cand
+            cp /tmp/cand/target/challenge/flock-benchmark-worker /tmp/worker-cand
           else
             SRC=""
             if [ -n "${{ github.event.inputs.patch_url }}" ]; then SRC="url"; fi
