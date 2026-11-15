@@ -29,9 +29,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
-      - name: Runner info
+      - name: Runner info + flag gate
         run: |
           lscpu | grep -E 'Model name|^CPU\(s\)' || true; free -h | head -2
+          missing=0
+          for f in avx512f avx512dq avx512vbmi gfni vpclmulqdq; do
+            grep -qw "$f" /proc/cpuinfo || { echo "MISSING FLAG: $f"; missing=1; }
+          done
+          if [ "$missing" = 1 ]; then
+            echo "::error::Runner lacks AVX-512/GFNI — profile would measure portable fallbacks. Re-dispatch."
+            exit 1
+          fi
 
       - name: Checkout challenge repo (pinned commit)
         uses: actions/checkout@v4

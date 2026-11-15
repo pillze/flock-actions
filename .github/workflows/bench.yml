@@ -49,8 +49,20 @@ jobs:
         run: |
           echo "=== CPU ==="; lscpu | grep -E 'Model name|^CPU\(s\)|Thread|Core|Socket' || true
           echo "=== needed flags ==="; for f in avx512f avx512dq avx512vbmi gfni vaes vpclmulqdq; do
-            grep -q "$f" /proc/cpuinfo && echo "$f: yes" || echo "$f: NO"; done
+            grep -qw "$f" /proc/cpuinfo && echo "$f: yes" || echo "$f: NO"; done
           echo "=== MEM ==="; free -h
+
+      - name: Require AVX-512 + GFNI runner
+        run: |
+          missing=0
+          for f in avx512f avx512dq avx512vbmi gfni vpclmulqdq; do
+            grep -qw "$f" /proc/cpuinfo || { echo "MISSING FLAG: $f"; missing=1; }
+          done
+          if [ "$missing" = 1 ]; then
+            echo "::error::This runner lacks AVX-512/GFNI (e.g. AMD EPYC Zen3 pool member)."
+            echo "::error::The record's kernels would compile to portable fallbacks, invalidating the measurement. Re-dispatch to land on an Intel AVX-512+GFNI runner."
+            exit 1
+          fi
 
       - name: Checkout challenge repo (pinned commit)
         uses: actions/checkout@v4
