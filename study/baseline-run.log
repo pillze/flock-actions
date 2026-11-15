@@ -1,0 +1,1441 @@
+bench	Set up job	﻿2026-11-15T04:24:28.0483939Z Current runner version: '2.338.2'
+bench	Set up job	2026-11-15T04:24:28.0524485Z ##[group]Runner Image Provisioner
+bench	Set up job	2026-11-15T04:24:28.0526332Z Hosted Compute Agent
+bench	Set up job	2026-11-15T04:24:28.0527479Z Version: 20261103.629
+bench	Set up job	2026-11-15T04:24:28.0528636Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+bench	Set up job	2026-11-15T04:24:28.0530088Z Build Date: 2026-11-03T17:26:59Z
+bench	Set up job	2026-11-15T04:24:28.0531315Z Worker ID: {c9e41992-f1a8-4f0f-96fc-78d47134deea}
+bench	Set up job	2026-11-15T04:24:28.0532535Z Region: eastus
+bench	Set up job	2026-11-15T04:24:28.0533572Z Cloud: Azure
+bench	Set up job	2026-11-15T04:24:28.0534490Z ##[endgroup]
+bench	Set up job	2026-11-15T04:24:28.0537361Z ##[group]Operating System
+bench	Set up job	2026-11-15T04:24:28.0538464Z Ubuntu
+bench	Set up job	2026-11-15T04:24:28.0539410Z 26.04.1
+bench	Set up job	2026-11-15T04:24:28.0540311Z LTS
+bench	Set up job	2026-11-15T04:24:28.0541167Z ##[endgroup]
+bench	Set up job	2026-11-15T04:24:28.0542890Z ##[group]Runner Image
+bench	Set up job	2026-11-15T04:24:28.0543956Z Image: ubuntu-26.04
+bench	Set up job	2026-11-15T04:24:28.0545070Z Version: 20261111.196.1
+bench	Set up job	2026-11-15T04:24:28.0547209Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261111.196/images/ubuntu/Ubuntu2604-Readme.md
+bench	Set up job	2026-11-15T04:24:28.0550501Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261111.196
+bench	Set up job	2026-11-15T04:24:28.0552370Z ##[endgroup]
+bench	Set up job	2026-11-15T04:24:28.0554458Z ##[group]GITHUB_TOKEN Permissions
+bench	Set up job	2026-11-15T04:24:28.0557940Z Contents: read
+bench	Set up job	2026-11-15T04:24:28.0559009Z Metadata: read
+bench	Set up job	2026-11-15T04:24:28.0560023Z Packages: read
+bench	Set up job	2026-11-15T04:24:28.0561004Z ##[endgroup]
+bench	Set up job	2026-11-15T04:24:28.0564272Z Secret source: Actions
+bench	Set up job	2026-11-15T04:24:28.0566295Z Cache mode: write
+bench	Set up job	2026-11-15T04:24:28.0567964Z Prepare workflow directory
+bench	Set up job	2026-11-15T04:24:28.1087844Z Prepare all required actions
+bench	Set up job	2026-11-15T04:24:28.1162313Z Getting action download info
+bench	Set up job	2026-11-15T04:24:28.3098315Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+bench	Set up job	2026-11-15T04:24:28.4162503Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+bench	Set up job	2026-11-15T04:24:28.4881206Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+bench	Set up job	2026-11-15T04:24:28.6947365Z Complete job name: bench
+bench	Runner hardware info	﻿2026-11-15T04:24:28.7836899Z ##[group]Run echo "=== CPU ==="; lscpu | grep -E 'Model name|^CPU\(s\)|Thread|Core|Socket' || true
+bench	Runner hardware info	2026-11-15T04:24:28.7838173Z ^[[36;1mecho "=== CPU ==="; lscpu | grep -E 'Model name|^CPU\(s\)|Thread|Core|Socket' || true^[[0m
+bench	Runner hardware info	2026-11-15T04:24:28.7839253Z ^[[36;1mecho "=== needed flags ==="; for f in avx512f avx512dq avx512vbmi gfni vaes vpclmulqdq; do^[[0m
+bench	Runner hardware info	2026-11-15T04:24:28.7840242Z ^[[36;1m  grep -q "$f" /proc/cpuinfo && echo "$f: yes" || echo "$f: NO"; done^[[0m
+bench	Runner hardware info	2026-11-15T04:24:28.7840967Z ^[[36;1mecho "=== MEM ==="; free -h^[[0m
+bench	Runner hardware info	2026-11-15T04:24:28.7895653Z shell: /usr/bin/bash -e {0}
+bench	Runner hardware info	2026-11-15T04:24:28.7896598Z ##[endgroup]
+bench	Runner hardware info	2026-11-15T04:24:28.8056872Z === CPU ===
+bench	Runner hardware info	2026-11-15T04:24:28.8086931Z CPU(s):                                  4
+bench	Runner hardware info	2026-11-15T04:24:28.8087950Z Model name:                              AMD EPYC 7763 64-Core Processor
+bench	Runner hardware info	2026-11-15T04:24:28.8089190Z Thread(s) per core:                      2
+bench	Runner hardware info	2026-11-15T04:24:28.8090203Z Core(s) per socket:                      2
+bench	Runner hardware info	2026-11-15T04:24:28.8090880Z Socket(s):                               1
+bench	Runner hardware info	2026-11-15T04:24:28.8091622Z === needed flags ===
+bench	Runner hardware info	2026-11-15T04:24:28.8106902Z avx512f: NO
+bench	Runner hardware info	2026-11-15T04:24:28.8123693Z avx512dq: NO
+bench	Runner hardware info	2026-11-15T04:24:28.8140251Z avx512vbmi: NO
+bench	Runner hardware info	2026-11-15T04:24:28.8155727Z gfni: NO
+bench	Runner hardware info	2026-11-15T04:24:28.8170136Z vaes: yes
+bench	Runner hardware info	2026-11-15T04:24:28.8184803Z vpclmulqdq: yes
+bench	Runner hardware info	2026-11-15T04:24:28.8199500Z === MEM ===
+bench	Runner hardware info	2026-11-15T04:24:28.8200219Z                total        used        free      shared  buff/cache   available
+bench	Runner hardware info	2026-11-15T04:24:28.8201107Z Mem:            15Gi       908Mi        14Gi        38Mi       834Mi        14Gi
+bench	Runner hardware info	2026-11-15T04:24:28.8201867Z Swap:          3.0Gi          0B       3.0Gi
+bench	Checkout challenge repo (pinned commit)	﻿2026-11-15T04:24:28.8458773Z ##[group]Run actions/checkout@v4
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8459432Z with:
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8459949Z   repository: Layr-Labs/flock-challenge-multi
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8460610Z   ref: 03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8461528Z   persist-credentials: false
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8465626Z   token: ***
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8466086Z   ssh-strict: true
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8466552Z   ssh-user: git
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8466985Z   clean: true
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8467584Z   sparse-checkout-cone-mode: true
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8468129Z   fetch-depth: 1
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8468564Z   fetch-tags: false
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8469013Z   show-progress: true
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8469461Z   lfs: false
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8469888Z   submodules: false
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8470372Z   set-safe-directory: true
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8470882Z   allow-unsafe-pr-checkout: false
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:28.8471399Z ##[endgroup]
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1294886Z Syncing repository: Layr-Labs/flock-challenge-multi
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1298619Z ##[group]Getting Git version info
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1300212Z Working directory is '/home/runner/work/flock-actions/flock-actions'
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1302361Z [command]/usr/bin/git version
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1303558Z git version 2.56.1
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1334162Z ##[endgroup]
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1349250Z Temporarily overriding HOME='/home/runner/work/_temp/dea63e4f-24de-4765-8208-38e2a99812c5' before making global git config changes
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1351606Z Adding repository directory to the temporary git global config as a safe directory
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1357744Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/flock-actions/flock-actions
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1453283Z Deleting the contents of '/home/runner/work/flock-actions/flock-actions'
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1460302Z ##[group]Initializing the repository
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1470578Z [command]/usr/bin/git init /home/runner/work/flock-actions/flock-actions
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1613300Z hint: Using 'master' as the name for the initial branch. This default branch name
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1616160Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1618412Z hint: to use in all of your new repositories, which will suppress this warning,
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1620262Z hint: call:
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1621489Z hint:
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1622961Z hint: 	git config --global init.defaultBranch <name>
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1624472Z hint:
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1626383Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1628376Z hint: 'development'. The just-created branch can be renamed via this command:
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1630217Z hint:
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1631357Z hint: 	git branch -m <name>
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1632526Z hint:
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1633999Z hint: Disable this message with "git config set advice.defaultBranchName false"
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1636609Z Initialized empty Git repository in /home/runner/work/flock-actions/flock-actions/.git/
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1644263Z [command]/usr/bin/git remote add origin https://github.com/Layr-Labs/flock-challenge-multi
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1710273Z ##[endgroup]
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1711910Z ##[group]Disabling automatic garbage collection
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1715330Z [command]/usr/bin/git config --local gc.auto 0
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1762810Z ##[endgroup]
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1764487Z ##[group]Setting up auth
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1771857Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.1816820Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.2376698Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.2416375Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.2717658Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.2758279Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.3051461Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.3095794Z ##[endgroup]
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.3097031Z ##[group]Fetching the repository
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.3106246Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin 03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.7987907Z From https://github.com/Layr-Labs/flock-challenge-multi
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8069703Z  * branch            03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd -> FETCH_HEAD
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8074470Z ##[endgroup]
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8076089Z ##[group]Determining the checkout info
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8078167Z ##[endgroup]
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8079440Z [command]/usr/bin/git sparse-checkout disable
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8081726Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8102398Z ##[group]Checking out the ref
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8112746Z [command]/usr/bin/git checkout --progress --force 03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8586803Z Note: switching to '03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd'.
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8588052Z 
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8588935Z You are in 'detached HEAD' state. You can look around, make experimental
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8590851Z changes and commit them, and you can discard any commits you make in this
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8592734Z state without impacting any branches by switching back to a branch.
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8593741Z 
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8594550Z If you want to create a new branch to retain commits you create, you may
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8596602Z do so (now or later) by using -c with the switch command. Example:
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8597570Z 
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8598278Z   git switch -c <new-branch-name>
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8599360Z 
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8600093Z Or undo this operation with:
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8600911Z 
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8601603Z   git switch -
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8602236Z 
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8603374Z Turn off this advice by setting config variable advice.detachedHead to false
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8604784Z 
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8606155Z HEAD is now at 03e70fa Validate submission 7552101f-d826-4459-bead-e18e00be0386
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8610628Z ##[endgroup]
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8651003Z [command]/usr/bin/git log -1 --format=%H
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8677353Z 03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8687729Z ##[group]Removing auth
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8691251Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.8723561Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.9012054Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.9036065Z http.https://github.com/.extraheader
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.9043934Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.9077890Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.9350091Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.9384800Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+bench	Checkout challenge repo (pinned commit)	2026-11-15T04:24:29.9664570Z ##[endgroup]
+bench	Install bwrap	﻿2026-11-15T04:24:29.9927941Z ##[group]Run sudo apt-get update -qq && sudo apt-get install -y -qq bubblewrap
+bench	Install bwrap	2026-11-15T04:24:29.9930354Z ^[[36;1msudo apt-get update -qq && sudo apt-get install -y -qq bubblewrap^[[0m
+bench	Install bwrap	2026-11-15T04:24:29.9983369Z shell: /usr/bin/bash -e {0}
+bench	Install bwrap	2026-11-15T04:24:29.9984521Z ##[endgroup]
+bench	Cache cargo + rustup	﻿2026-11-15T04:24:33.9024556Z ##[group]Run actions/cache@v4
+bench	Cache cargo + rustup	2026-11-15T04:24:33.9024906Z with:
+bench	Cache cargo + rustup	2026-11-15T04:24:33.9025195Z   path: ~/.cargo/registry
+bench	Cache cargo + rustup	~/.cargo/git
+bench	Cache cargo + rustup	~/.rustup/toolchains
+bench	Cache cargo + rustup	
+bench	Cache cargo + rustup	2026-11-15T04:24:33.9025917Z   key: flock-03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd-v1
+bench	Cache cargo + rustup	2026-11-15T04:24:33.9026258Z   restore-keys: flock-
+bench	Cache cargo + rustup	2026-11-15T04:24:33.9026495Z   enableCrossOsArchive: false
+bench	Cache cargo + rustup	2026-11-15T04:24:33.9026765Z   fail-on-cache-miss: false
+bench	Cache cargo + rustup	2026-11-15T04:24:33.9027001Z   lookup-only: false
+bench	Cache cargo + rustup	2026-11-15T04:24:33.9027211Z   save-always: false
+bench	Cache cargo + rustup	2026-11-15T04:24:33.9027420Z ##[endgroup]
+bench	Cache cargo + rustup	2026-11-15T04:24:34.0152857Z (node:2617) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+bench	Cache cargo + rustup	2026-11-15T04:24:34.0154360Z (Use `node --trace-deprecation ...` to show where the warning was created)
+bench	Cache cargo + rustup	2026-11-15T04:24:34.0868271Z Cache not found for input keys: flock-03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd-v1, flock-
+bench	Setup	﻿2026-11-15T04:24:34.0966966Z ##[group]Run ./setup.sh
+bench	Setup	2026-11-15T04:24:34.0967297Z ^[[36;1m./setup.sh^[[0m
+bench	Setup	2026-11-15T04:24:34.1020310Z shell: /usr/bin/bash -e {0}
+bench	Setup	2026-11-15T04:24:34.1020648Z ##[endgroup]
+bench	Setup	2026-11-15T04:24:35.1474222Z info: syncing channel updates for 1.97.0-x86_64-unknown-linux-gnu
+bench	Setup	2026-11-15T04:24:35.4050944Z info: latest update on 2026-07-09 for version 1.97.0 (2d8144b78 2026-07-07)
+bench	Setup	2026-11-15T04:24:35.4051870Z info: downloading 3 components
+bench	Setup	2026-11-15T04:24:43.3208169Z 
+bench	Setup	2026-11-15T04:24:43.3285596Z   1.97.0-x86_64-unknown-linux-gnu installed - rustc 1.97.0 (2d8144b78 2026-07-07)
+bench	Setup	2026-11-15T04:24:43.3286327Z 
+bench	Setup	2026-11-15T04:24:43.3604938Z flock_benchmark_verifier: OK
+bench	Setup	2026-11-15T04:24:43.3798974Z     Updating crates.io index
+bench	Setup	2026-11-15T04:24:43.4886172Z  Downloading crates ...
+bench	Setup	2026-11-15T04:24:43.5814081Z   Downloaded equivalent v1.0.2
+bench	Setup	2026-11-15T04:24:43.5886174Z   Downloaded rayon v1.12.0
+bench	Setup	2026-11-15T04:24:43.6021452Z   Downloaded keccak v0.1.6
+bench	Setup	2026-11-15T04:24:43.6043029Z   Downloaded unicode-ident v1.0.24
+bench	Setup	2026-11-15T04:24:43.6090039Z   Downloaded indexmap v2.14.0
+bench	Setup	2026-11-15T04:24:43.6157916Z   Downloaded sha3 v0.10.9
+bench	Setup	2026-11-15T04:24:43.6205007Z   Downloaded bincode v1.3.3
+bench	Setup	2026-11-15T04:24:43.6238937Z   Downloaded generic-array v0.14.7
+bench	Setup	2026-11-15T04:24:43.6260857Z   Downloaded arrayvec v0.7.8
+bench	Setup	2026-11-15T04:24:43.6293676Z   Downloaded rayon-core v1.13.0
+bench	Setup	2026-11-15T04:24:43.6347014Z   Downloaded cfg-if v1.0.4
+bench	Setup	2026-11-15T04:24:43.6363923Z   Downloaded constant_time_eq v0.4.2
+bench	Setup	2026-11-15T04:24:43.6392125Z   Downloaded cc v1.4.2
+bench	Setup	2026-11-15T04:24:43.6435789Z   Downloaded sha2-asm v0.6.4
+bench	Setup	2026-11-15T04:24:43.6454428Z   Downloaded cpufeatures v0.2.17
+bench	Setup	2026-11-15T04:24:43.6474820Z   Downloaded crypto-common v0.1.7
+bench	Setup	2026-11-15T04:24:43.6488291Z   Downloaded serde_derive v1.0.229
+bench	Setup	2026-11-15T04:24:43.6537426Z   Downloaded toml v0.8.23
+bench	Setup	2026-11-15T04:24:43.6570388Z   Downloaded serde_json v1.0.151
+bench	Setup	2026-11-15T04:24:43.6643241Z   Downloaded digest v0.10.7
+bench	Setup	2026-11-15T04:24:43.6661080Z   Downloaded block-buffer v0.10.4
+bench	Setup	2026-11-15T04:24:43.6672252Z   Downloaded serde_core v1.0.229
+bench	Setup	2026-11-15T04:24:43.6698578Z   Downloaded crossbeam-deque v0.8.7
+bench	Setup	2026-11-15T04:24:43.6713308Z   Downloaded cpufeatures v0.3.0
+bench	Setup	2026-11-15T04:24:43.6728224Z   Downloaded zmij v1.0.23
+bench	Setup	2026-11-15T04:24:43.6748420Z   Downloaded version_check v0.9.5
+bench	Setup	2026-11-15T04:24:43.6761526Z   Downloaded find-msvc-tools v0.1.10
+bench	Setup	2026-11-15T04:24:43.6777128Z   Downloaded either v1.17.0
+bench	Setup	2026-11-15T04:24:43.6791568Z   Downloaded syn v3.0.3
+bench	Setup	2026-11-15T04:24:43.6899741Z   Downloaded blake3 v1.8.6
+bench	Setup	2026-11-15T04:24:43.6978717Z   Downloaded arrayref v0.3.9
+bench	Setup	2026-11-15T04:24:43.6991623Z   Downloaded proc-macro2 v1.0.107
+bench	Setup	2026-11-15T04:24:43.7021045Z   Downloaded itoa v1.0.18
+bench	Setup	2026-11-15T04:24:43.7035311Z   Downloaded typenum v1.20.1
+bench	Setup	2026-11-15T04:24:43.7070497Z   Downloaded serde v1.0.229
+bench	Setup	2026-11-15T04:24:43.7105152Z   Downloaded toml_edit v0.22.27
+bench	Setup	2026-11-15T04:24:43.7148716Z   Downloaded winnow v0.7.15
+bench	Setup	2026-11-15T04:24:43.7243743Z   Downloaded toml_write v0.1.2
+bench	Setup	2026-11-15T04:24:43.7256599Z   Downloaded shlex v2.0.1
+bench	Setup	2026-11-15T04:24:43.7269601Z   Downloaded serde_spanned v0.6.9
+bench	Setup	2026-11-15T04:24:43.7280127Z   Downloaded memchr v2.8.3
+bench	Setup	2026-11-15T04:24:43.7334940Z   Downloaded hashbrown v0.17.1
+bench	Setup	2026-11-15T04:24:43.7387783Z   Downloaded quote v1.0.47
+bench	Setup	2026-11-15T04:24:43.7414951Z   Downloaded crossbeam-utils v0.8.22
+bench	Setup	2026-11-15T04:24:43.7442263Z   Downloaded libc v0.2.189
+bench	Setup	2026-11-15T04:24:43.7868217Z   Downloaded toml_datetime v0.6.11
+bench	Setup	2026-11-15T04:24:43.7880478Z   Downloaded crossbeam-epoch v0.9.20
+bench	Setup	2026-11-15T04:24:43.7905142Z   Downloaded sha2 v0.10.9
+bench	Setup	2026-11-15T04:24:43.8786652Z    Compiling proc-macro2 v1.0.107
+bench	Setup	2026-11-15T04:24:43.8787702Z    Compiling unicode-ident v1.0.24
+bench	Setup	2026-11-15T04:24:43.8788532Z    Compiling quote v1.0.47
+bench	Setup	2026-11-15T04:24:43.8789262Z    Compiling serde_core v1.0.229
+bench	Setup	2026-11-15T04:24:43.9427468Z    Compiling shlex v2.0.1
+bench	Setup	2026-11-15T04:24:44.0646805Z    Compiling find-msvc-tools v0.1.10
+bench	Setup	2026-11-15T04:24:44.0688703Z    Compiling serde v1.0.229
+bench	Setup	2026-11-15T04:24:44.0836071Z    Compiling version_check v0.9.5
+bench	Setup	2026-11-15T04:24:44.2457079Z    Compiling cc v1.4.2
+bench	Setup	2026-11-15T04:24:44.3275796Z    Compiling generic-array v0.14.7
+bench	Setup	2026-11-15T04:24:44.4326895Z    Compiling crossbeam-utils v0.8.22
+bench	Setup	2026-11-15T04:24:44.8036555Z    Compiling syn v3.0.3
+bench	Setup	2026-11-15T04:24:44.8396868Z    Compiling typenum v1.20.1
+bench	Setup	2026-11-15T04:24:45.7535804Z    Compiling crossbeam-epoch v0.9.20
+bench	Setup	2026-11-15T04:24:46.5367790Z    Compiling crossbeam-deque v0.8.7
+bench	Setup	2026-11-15T04:24:46.9326752Z    Compiling sha2-asm v0.6.4
+bench	Setup	2026-11-15T04:24:47.0982437Z    Compiling equivalent v1.0.2
+bench	Setup	2026-11-15T04:24:47.1282591Z    Compiling rayon-core v1.13.0
+bench	Setup	2026-11-15T04:24:47.2186339Z    Compiling hashbrown v0.17.1
+bench	Setup	2026-11-15T04:24:47.5270698Z    Compiling crypto-common v0.1.7
+bench	Setup	2026-11-15T04:24:47.5987945Z    Compiling block-buffer v0.10.4
+bench	Setup	2026-11-15T04:24:47.6752661Z    Compiling blake3 v1.8.6
+bench	Setup	2026-11-15T04:24:47.7489423Z    Compiling serde_derive v1.0.229
+bench	Setup	2026-11-15T04:24:47.8508238Z    Compiling toml_write v0.1.2
+bench	Setup	2026-11-15T04:24:47.9497986Z    Compiling indexmap v2.14.0
+bench	Setup	2026-11-15T04:24:48.0236747Z    Compiling winnow v0.7.15
+bench	Setup	2026-11-15T04:24:48.6154739Z    Compiling cfg-if v1.0.4
+bench	Setup	2026-11-15T04:24:49.9197664Z    Compiling digest v0.10.7
+bench	Setup	2026-11-15T04:24:50.7567285Z    Compiling serde_spanned v0.6.9
+bench	Setup	2026-11-15T04:24:50.8101753Z    Compiling toml_datetime v0.6.11
+bench	Setup	2026-11-15T04:24:50.8825313Z    Compiling constant_time_eq v0.4.2
+bench	Setup	2026-11-15T04:24:50.9560604Z    Compiling toml_edit v0.22.27
+bench	Setup	2026-11-15T04:24:51.0164368Z    Compiling cpufeatures v0.2.17
+bench	Setup	2026-11-15T04:24:51.0352212Z    Compiling arrayref v0.3.9
+bench	Setup	2026-11-15T04:24:51.0540083Z    Compiling arrayvec v0.7.8
+bench	Setup	2026-11-15T04:24:51.1879851Z    Compiling either v1.17.0
+bench	Setup	2026-11-15T04:24:51.3008663Z    Compiling cpufeatures v0.3.0
+bench	Setup	2026-11-15T04:24:51.3216027Z    Compiling rayon v1.12.0
+bench	Setup	2026-11-15T04:24:53.2191848Z    Compiling toml v0.8.23
+bench	Setup	2026-11-15T04:24:53.5837706Z    Compiling sha2 v0.10.9
+bench	Setup	2026-11-15T04:24:53.9156765Z    Compiling bincode v1.3.3
+bench	Setup	2026-11-15T04:24:54.1464680Z    Compiling flock-benchmark-common v0.1.0 (/home/runner/work/flock-actions/flock-actions/benchmark-tools/common)
+bench	Setup	2026-11-15T04:24:54.3296727Z    Compiling flock-core v0.1.0 (/home/runner/work/flock-actions/flock-actions/crates/flock-core)
+bench	Setup	2026-11-15T04:24:55.0228584Z warning: unused import: `fold2_plain_and_round_pair_lookahead_into_lm`
+bench	Setup	2026-11-15T04:24:55.0229930Z   --> crates/flock-core/src/zerocheck.rs:43:5
+bench	Setup	2026-11-15T04:24:55.0230714Z    |
+bench	Setup	2026-11-15T04:24:55.0231536Z 43 |     fold2_plain_and_round_pair_lookahead_into_lm, fold2_plain_and_round4_into,
+bench	Setup	2026-11-15T04:24:55.0232497Z    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:55.0233128Z    |
+bench	Setup	2026-11-15T04:24:55.0233796Z    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+bench	Setup	2026-11-15T04:24:55.0234483Z 
+bench	Setup	2026-11-15T04:24:56.7908926Z warning: unused variable: `z_canonical`
+bench	Setup	2026-11-15T04:24:56.7910807Z    --> crates/flock-core/src/lincheck.rs:987:9
+bench	Setup	2026-11-15T04:24:56.7911858Z     |
+bench	Setup	2026-11-15T04:24:56.7912383Z 987 |         z_canonical: &[F128],
+bench	Setup	2026-11-15T04:24:56.7913281Z     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_z_canonical`
+bench	Setup	2026-11-15T04:24:56.7914167Z     |
+bench	Setup	2026-11-15T04:24:56.7914853Z     = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+bench	Setup	2026-11-15T04:24:56.7915797Z 
+bench	Setup	2026-11-15T04:24:56.7916122Z warning: unused variable: `k`
+bench	Setup	2026-11-15T04:24:56.7916754Z    --> crates/flock-core/src/lincheck.rs:989:9
+bench	Setup	2026-11-15T04:24:56.7917381Z     |
+bench	Setup	2026-11-15T04:24:56.7917867Z 989 |         k: usize,
+bench	Setup	2026-11-15T04:24:56.7918566Z     |         ^ help: if this is intentional, prefix it with an underscore: `_k`
+bench	Setup	2026-11-15T04:24:56.7919208Z 
+bench	Setup	2026-11-15T04:24:56.7919538Z warning: unused variable: `eq8_indices`
+bench	Setup	2026-11-15T04:24:56.7920199Z    --> crates/flock-core/src/lincheck.rs:991:9
+bench	Setup	2026-11-15T04:24:56.7920819Z     |
+bench	Setup	2026-11-15T04:24:56.7921468Z 991 |         eq8_indices: impl Fn([usize; 8]) -> [F128; 8] + Sync,
+bench	Setup	2026-11-15T04:24:56.7922514Z     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_eq8_indices`
+bench	Setup	2026-11-15T04:24:56.7923650Z 
+bench	Setup	2026-11-15T04:24:56.9666500Z warning: unused variable: `compact`
+bench	Setup	2026-11-15T04:24:56.9668093Z     --> crates/flock-core/src/ntt/additive_ntt_f128.rs:3731:48
+bench	Setup	2026-11-15T04:24:56.9669019Z      |
+bench	Setup	2026-11-15T04:24:56.9669808Z 3731 |         let seed = |bufp: *mut F128, r: usize, compact: *const F128| {
+bench	Setup	2026-11-15T04:24:56.9670745Z      |                                                ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_compact`
+bench	Setup	2026-11-15T04:24:56.9671359Z 
+bench	Setup	2026-11-15T04:24:56.9959438Z warning: unused variable: `seed_sub`
+bench	Setup	2026-11-15T04:24:56.9960435Z     --> crates/flock-core/src/ntt/additive_ntt_f128.rs:4324:9
+bench	Setup	2026-11-15T04:24:56.9961014Z      |
+bench	Setup	2026-11-15T04:24:56.9961407Z 4324 |         seed_sub: Option<(&[F128], usize)>,
+bench	Setup	2026-11-15T04:24:56.9962087Z      |         ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_seed_sub`
+bench	Setup	2026-11-15T04:24:56.9962663Z 
+bench	Setup	2026-11-15T04:24:56.9962847Z warning: unused variable: `dsteal_done`
+bench	Setup	2026-11-15T04:24:56.9963409Z     --> crates/flock-core/src/ntt/additive_ntt_f128.rs:4766:13
+bench	Setup	2026-11-15T04:24:56.9963990Z      |
+bench	Setup	2026-11-15T04:24:56.9964342Z 4766 |         let dsteal_done = &dsteal_done;
+bench	Setup	2026-11-15T04:24:56.9965089Z      |             ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dsteal_done`
+bench	Setup	2026-11-15T04:24:56.9965898Z 
+bench	Setup	2026-11-15T04:24:57.0094689Z warning: unused variable: `raw7`
+bench	Setup	2026-11-15T04:24:57.0095666Z     --> crates/flock-core/src/ntt/additive_ntt_f128.rs:6166:5
+bench	Setup	2026-11-15T04:24:57.0096280Z      |
+bench	Setup	2026-11-15T04:24:57.0096569Z 6166 |     raw7: bool,
+bench	Setup	2026-11-15T04:24:57.0097106Z      |     ^^^^ help: if this is intentional, prefix it with an underscore: `_raw7`
+bench	Setup	2026-11-15T04:24:57.0097622Z 
+bench	Setup	2026-11-15T04:24:57.2851104Z warning: variable does not need to be mutable
+bench	Setup	2026-11-15T04:24:57.2851860Z     --> crates/flock-core/src/pcs/ligerito.rs:2487:13
+bench	Setup	2026-11-15T04:24:57.2852418Z      |
+bench	Setup	2026-11-15T04:24:57.2852743Z 2487 |         let mut handled = false;
+bench	Setup	2026-11-15T04:24:57.2853212Z      |             ----^^^^^^^
+bench	Setup	2026-11-15T04:24:57.2853591Z      |             |
+bench	Setup	2026-11-15T04:24:57.2853958Z      |             help: remove this `mut`
+bench	Setup	2026-11-15T04:24:57.2854387Z      |
+bench	Setup	2026-11-15T04:24:57.2854844Z      = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+bench	Setup	2026-11-15T04:24:57.2855336Z 
+bench	Setup	2026-11-15T04:24:57.2950788Z warning: variable does not need to be mutable
+bench	Setup	2026-11-15T04:24:57.2951527Z     --> crates/flock-core/src/pcs/ligerito.rs:2838:13
+bench	Setup	2026-11-15T04:24:57.2952027Z      |
+bench	Setup	2026-11-15T04:24:57.2952359Z 2838 |         let mut handled = false;
+bench	Setup	2026-11-15T04:24:57.2952807Z      |             ----^^^^^^^
+bench	Setup	2026-11-15T04:24:57.2953190Z      |             |
+bench	Setup	2026-11-15T04:24:57.2953560Z      |             help: remove this `mut`
+bench	Setup	2026-11-15T04:24:57.2953860Z 
+bench	Setup	2026-11-15T04:24:57.6753001Z warning: unused variable: `pre_a_cells`
+bench	Setup	2026-11-15T04:24:57.6754047Z     --> crates/flock-core/src/pcs/ring_switch.rs:4380:9
+bench	Setup	2026-11-15T04:24:57.6754600Z      |
+bench	Setup	2026-11-15T04:24:57.6761090Z 4380 |     let pre_a_cells: Vec<std::sync::Mutex<Option<PreParts>>> =
+bench	Setup	2026-11-15T04:24:57.6762013Z      |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_pre_a_cells`
+bench	Setup	2026-11-15T04:24:57.6762608Z 
+bench	Setup	2026-11-15T04:24:57.8734473Z warning: variable does not need to be mutable
+bench	Setup	2026-11-15T04:24:57.8735388Z    --> crates/flock-core/src/zerocheck/multilinear/three_var.rs:548:17
+bench	Setup	2026-11-15T04:24:57.8736411Z     |
+bench	Setup	2026-11-15T04:24:57.8736906Z 548 |             let mut la7 = [F128::ZERO; 18];
+bench	Setup	2026-11-15T04:24:57.8737454Z     |                 ----^^^
+bench	Setup	2026-11-15T04:24:57.8737882Z     |                 |
+bench	Setup	2026-11-15T04:24:57.8738254Z     |                 help: remove this `mut`
+bench	Setup	2026-11-15T04:24:57.8738546Z 
+bench	Setup	2026-11-15T04:24:57.8742782Z warning: unused variable: `pre_wtab`
+bench	Setup	2026-11-15T04:24:57.8743437Z    --> crates/flock-core/src/zerocheck/multilinear/three_var.rs:405:5
+bench	Setup	2026-11-15T04:24:57.8744097Z     |
+bench	Setup	2026-11-15T04:24:57.8744769Z 405 |     pre_wtab: Option<&[F128]>,
+bench	Setup	2026-11-15T04:24:57.8745374Z     |     ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_pre_wtab`
+bench	Setup	2026-11-15T04:24:57.8746096Z 
+bench	Setup	2026-11-15T04:24:57.8746269Z warning: unused variable: `kappa6`
+bench	Setup	2026-11-15T04:24:57.8746892Z    --> crates/flock-core/src/zerocheck/multilinear/three_var.rs:534:9
+bench	Setup	2026-11-15T04:24:57.8747455Z     |
+bench	Setup	2026-11-15T04:24:57.8748015Z 534 |     let kappa6 = if casc { (F128::ONE + r_next5[2]) * r_next5[2].inv() } else { F128::ZERO };
+bench	Setup	2026-11-15T04:24:57.8748874Z     |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_kappa6`
+bench	Setup	2026-11-15T04:24:57.8749356Z 
+bench	Setup	2026-11-15T04:24:57.9417116Z warning: variable does not need to be mutable
+bench	Setup	2026-11-15T04:24:57.9418215Z     --> crates/flock-core/src/zerocheck/multilinear.rs:3785:17
+bench	Setup	2026-11-15T04:24:57.9418998Z      |
+bench	Setup	2026-11-15T04:24:57.9419573Z 3785 |             let mut la7 = [F128::ZERO; 18];
+bench	Setup	2026-11-15T04:24:57.9420186Z      |                 ----^^^
+bench	Setup	2026-11-15T04:24:57.9420626Z      |                 |
+bench	Setup	2026-11-15T04:24:57.9420994Z      |                 help: remove this `mut`
+bench	Setup	2026-11-15T04:24:57.9421345Z 
+bench	Setup	2026-11-15T04:24:57.9423859Z warning: unused variable: `kappa_c`
+bench	Setup	2026-11-15T04:24:57.9424729Z     --> crates/flock-core/src/zerocheck/multilinear.rs:3694:9
+bench	Setup	2026-11-15T04:24:57.9425279Z      |
+bench	Setup	2026-11-15T04:24:57.9426062Z 3694 |     let kappa_c = if casc { (F128::ONE + r_next[2]) * r_next[2].inv() } else { F128::ZERO };
+bench	Setup	2026-11-15T04:24:57.9426931Z      |         ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_kappa_c`
+bench	Setup	2026-11-15T04:24:57.9427440Z 
+bench	Setup	2026-11-15T04:24:58.2066614Z warning: function `env_knob` is never used
+bench	Setup	2026-11-15T04:24:58.2067763Z     --> crates/flock-core/src/challenger.rs:1631:4
+bench	Setup	2026-11-15T04:24:58.2068498Z      |
+bench	Setup	2026-11-15T04:24:58.2069002Z 1631 | fn env_knob(name: &str, default: u64) -> u64 {
+bench	Setup	2026-11-15T04:24:58.2069646Z      |    ^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2070143Z      |
+bench	Setup	2026-11-15T04:24:58.2070696Z      = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+bench	Setup	2026-11-15T04:24:58.2071282Z 
+bench	Setup	2026-11-15T04:24:58.2071533Z warning: struct `TeamKnobs` is never constructed
+bench	Setup	2026-11-15T04:24:58.2072174Z     --> crates/flock-core/src/challenger.rs:1636:8
+bench	Setup	2026-11-15T04:24:58.2072555Z      |
+bench	Setup	2026-11-15T04:24:58.2072904Z 1636 | struct TeamKnobs {
+bench	Setup	2026-11-15T04:24:58.2073333Z      |        ^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2073589Z 
+bench	Setup	2026-11-15T04:24:58.2073781Z warning: static `TEAM` is never used
+bench	Setup	2026-11-15T04:24:58.2074413Z     --> crates/flock-core/src/challenger.rs:1660:8
+bench	Setup	2026-11-15T04:24:58.2074780Z      |
+bench	Setup	2026-11-15T04:24:58.2075342Z 1660 | static TEAM: std::sync::LazyLock<TeamKnobs> = std::sync::LazyLock::new(|| TeamKnobs {
+bench	Setup	2026-11-15T04:24:58.2076249Z      |        ^^^^
+bench	Setup	2026-11-15T04:24:58.2076504Z 
+bench	Setup	2026-11-15T04:24:58.2076737Z warning: struct `TeamPad` is never constructed
+bench	Setup	2026-11-15T04:24:58.2077400Z     --> crates/flock-core/src/challenger.rs:1801:8
+bench	Setup	2026-11-15T04:24:58.2078305Z      |
+bench	Setup	2026-11-15T04:24:58.2078784Z 1801 | struct TeamPad(std::sync::atomic::AtomicU64);
+bench	Setup	2026-11-15T04:24:58.2079394Z      |        ^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2079642Z 
+bench	Setup	2026-11-15T04:24:58.2079859Z warning: static `GRIND_WARM` is never used
+bench	Setup	2026-11-15T04:24:58.2080501Z     --> crates/flock-core/src/challenger.rs:2023:8
+bench	Setup	2026-11-15T04:24:58.2080989Z      |
+bench	Setup	2026-11-15T04:24:58.2081575Z 2023 | static GRIND_WARM: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
+bench	Setup	2026-11-15T04:24:58.2082297Z      |        ^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2082528Z 
+bench	Setup	2026-11-15T04:24:58.2082674Z warning: field `k` is never read
+bench	Setup	2026-11-15T04:24:58.2083130Z    --> crates/flock-core/src/lincheck.rs:359:5
+bench	Setup	2026-11-15T04:24:58.2083579Z     |
+bench	Setup	2026-11-15T04:24:58.2083872Z 357 | struct Sl1Warm {
+bench	Setup	2026-11-15T04:24:58.2084238Z     |        ------- field in this struct
+bench	Setup	2026-11-15T04:24:58.2084705Z 358 |     plan: *const LinearFoldPlan,
+bench	Setup	2026-11-15T04:24:58.2085087Z 359 |     k: usize,
+bench	Setup	2026-11-15T04:24:58.2085408Z     |     ^
+bench	Setup	2026-11-15T04:24:58.2085752Z 
+bench	Setup	2026-11-15T04:24:58.2086248Z warning: function `sl1_warm_start_tiles` is never used
+bench	Setup	2026-11-15T04:24:58.2086833Z    --> crates/flock-core/src/lincheck.rs:371:4
+bench	Setup	2026-11-15T04:24:58.2087303Z     |
+bench	Setup	2026-11-15T04:24:58.2087632Z 371 | fn sl1_warm_start_tiles() -> usize {
+bench	Setup	2026-11-15T04:24:58.2088078Z     |    ^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2088322Z 
+bench	Setup	2026-11-15T04:24:58.2088527Z warning: function `sl1_warm_budget` is never used
+bench	Setup	2026-11-15T04:24:58.2089066Z    --> crates/flock-core/src/lincheck.rs:378:4
+bench	Setup	2026-11-15T04:24:58.2089475Z     |
+bench	Setup	2026-11-15T04:24:58.2089655Z 378 | fn sl1_warm_budget() -> usize {
+bench	Setup	2026-11-15T04:24:58.2089892Z     |    ^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2090030Z 
+bench	Setup	2026-11-15T04:24:58.2090142Z warning: function `sl1_rc_warm_step` is never used
+bench	Setup	2026-11-15T04:24:58.2090465Z    --> crates/flock-core/src/lincheck.rs:402:15
+bench	Setup	2026-11-15T04:24:58.2090748Z     |
+bench	Setup	2026-11-15T04:24:58.2090985Z 402 | pub(crate) fn sl1_rc_warm_step(remaining_tiles: usize) {
+bench	Setup	2026-11-15T04:24:58.2091307Z     |               ^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2091471Z 
+bench	Setup	2026-11-15T04:24:58.2091572Z warning: method `map_cols` is never used
+bench	Setup	2026-11-15T04:24:58.2091857Z     --> crates/flock-core/src/lincheck.rs:1649:8
+bench	Setup	2026-11-15T04:24:58.2092119Z      |
+bench	Setup	2026-11-15T04:24:58.2092291Z 1594 | impl CscCircuit {
+bench	Setup	2026-11-15T04:24:58.2092539Z      | --------------- method in this implementation
+bench	Setup	2026-11-15T04:24:58.2092803Z ...
+bench	Setup	2026-11-15T04:24:58.2093107Z 1649 |     fn map_cols(&self, one_col: impl Fn(usize) -> F128 + Sync + Send) -> Vec<F128> {
+bench	Setup	2026-11-15T04:24:58.2093507Z      |        ^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2093627Z 
+bench	Setup	2026-11-15T04:24:58.2093747Z warning: function `eq8_from_factors` is never used
+bench	Setup	2026-11-15T04:24:58.2094062Z     --> crates/flock-core/src/lincheck.rs:2570:4
+bench	Setup	2026-11-15T04:24:58.2094324Z      |
+bench	Setup	2026-11-15T04:24:58.2094499Z 2570 | fn eq8_from_factors(
+bench	Setup	2026-11-15T04:24:58.2094711Z      |    ^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2094847Z 
+bench	Setup	2026-11-15T04:24:58.2094962Z warning: function `v2_dsteal_mode` is never used
+bench	Setup	2026-11-15T04:24:58.2095298Z    --> crates/flock-core/src/ntt/additive_ntt_f128.rs:512:4
+bench	Setup	2026-11-15T04:24:58.2095868Z     |
+bench	Setup	2026-11-15T04:24:58.2114633Z 512 | fn v2_dsteal_mode() -> u8 {
+bench	Setup	2026-11-15T04:24:58.2115030Z     |    ^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2115251Z 
+bench	Setup	2026-11-15T04:24:58.2115830Z warning: function `ntt_alias_load_order_enabled` is never used
+bench	Setup	2026-11-15T04:24:58.2116534Z    --> crates/flock-core/src/ntt/additive_ntt_f128.rs:758:15
+bench	Setup	2026-11-15T04:24:58.2116915Z     |
+bench	Setup	2026-11-15T04:24:58.2117180Z 758 | pub(crate) fn ntt_alias_load_order_enabled() -> bool {
+bench	Setup	2026-11-15T04:24:58.2117521Z     |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2117706Z 
+bench	Setup	2026-11-15T04:24:58.2117860Z warning: function `ranked_zero_odd_tail_lanes` is never used
+bench	Setup	2026-11-15T04:24:58.2118229Z    --> crates/flock-core/src/ntt/additive_ntt_f128.rs:945:15
+bench	Setup	2026-11-15T04:24:58.2118532Z     |
+bench	Setup	2026-11-15T04:24:58.2118852Z 945 | pub(crate) fn ranked_zero_odd_tail_lanes(log_d: usize, num_ntts: usize) -> usize {
+bench	Setup	2026-11-15T04:24:58.2119501Z     |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2119687Z 
+bench	Setup	2026-11-15T04:24:58.2119802Z warning: function `lf1_small_ntop` is never used
+bench	Setup	2026-11-15T04:24:58.2120147Z     --> crates/flock-core/src/ntt/additive_ntt_f128.rs:6371:4
+bench	Setup	2026-11-15T04:24:58.2120467Z      |
+bench	Setup	2026-11-15T04:24:58.2120659Z 6371 | fn lf1_small_ntop() -> usize {
+bench	Setup	2026-11-15T04:24:58.2120903Z      |    ^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2121038Z 
+bench	Setup	2026-11-15T04:24:58.2121168Z warning: function `rs_seed_sub_enabled` is never used
+bench	Setup	2026-11-15T04:24:58.2121523Z     --> crates/flock-core/src/ntt/additive_ntt_f128.rs:6383:4
+bench	Setup	2026-11-15T04:24:58.2121818Z      |
+bench	Setup	2026-11-15T04:24:58.2122011Z 6383 | fn rs_seed_sub_enabled() -> bool {
+bench	Setup	2026-11-15T04:24:58.2122269Z      |    ^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2122410Z 
+bench	Setup	2026-11-15T04:24:58.2122525Z warning: function `rs_seed6_mode` is never used
+bench	Setup	2026-11-15T04:24:58.2122855Z     --> crates/flock-core/src/ntt/additive_ntt_f128.rs:6389:4
+bench	Setup	2026-11-15T04:24:58.2123154Z      |
+bench	Setup	2026-11-15T04:24:58.2123486Z 6389 | fn rs_seed6_mode() -> (bool, bool) {
+bench	Setup	2026-11-15T04:24:58.2123744Z      |    ^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2123866Z 
+bench	Setup	2026-11-15T04:24:58.2123987Z warning: function `offw_krow_words` is never used
+bench	Setup	2026-11-15T04:24:58.2124309Z    --> crates/flock-core/src/ntt/inv_table.rs:700:21
+bench	Setup	2026-11-15T04:24:58.2124584Z     |
+bench	Setup	2026-11-15T04:24:58.2124889Z 700 | pub(crate) const fn offw_krow_words<const P: bool>(k: usize) -> usize {
+bench	Setup	2026-11-15T04:24:58.2125256Z     |                     ^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2125764Z 
+bench	Setup	2026-11-15T04:24:58.2126009Z warning: function `rs_f8_rebal_enabled` is never used
+bench	Setup	2026-11-15T04:24:58.2126640Z     --> crates/flock-core/src/pcs/ligerito.rs:7309:4
+bench	Setup	2026-11-15T04:24:58.2126956Z      |
+bench	Setup	2026-11-15T04:24:58.2127148Z 7309 | fn rs_f8_rebal_enabled() -> bool {
+bench	Setup	2026-11-15T04:24:58.2127413Z      |    ^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2127548Z 
+bench	Setup	2026-11-15T04:24:58.2127735Z warning: function `direct_fold8_l1_precommit_enabled` is never used
+bench	Setup	2026-11-15T04:24:58.2128118Z     --> crates/flock-core/src/pcs/ligerito.rs:7317:4
+bench	Setup	2026-11-15T04:24:58.2128396Z      |
+bench	Setup	2026-11-15T04:24:58.2128621Z 7317 | fn direct_fold8_l1_precommit_enabled() -> bool {
+bench	Setup	2026-11-15T04:24:58.2128914Z      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2129084Z 
+bench	Setup	2026-11-15T04:24:58.2129172Z warning: field `0` is never read
+bench	Setup	2026-11-15T04:24:58.2129446Z     --> crates/flock-core/src/pcs/ligerito.rs:8534:16
+bench	Setup	2026-11-15T04:24:58.2129714Z      |
+bench	Setup	2026-11-15T04:24:58.2129901Z 8534 | struct Gl2Line([usize; 8]);
+bench	Setup	2026-11-15T04:24:58.2130145Z      |        ------- ^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2130360Z      |        |
+bench	Setup	2026-11-15T04:24:58.2130548Z      |        field in this struct
+bench	Setup	2026-11-15T04:24:58.2130766Z      |
+bench	Setup	2026-11-15T04:24:58.2130956Z      = help: consider removing this field
+bench	Setup	2026-11-15T04:24:58.2131471Z      = note: `Gl2Line` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+bench	Setup	2026-11-15T04:24:58.2131906Z 
+bench	Setup	2026-11-15T04:24:58.2132066Z warning: function `direct_fold8_round0_chunked` is never used
+bench	Setup	2026-11-15T04:24:58.2132440Z     --> crates/flock-core/src/pcs/ring_switch.rs:3131:4
+bench	Setup	2026-11-15T04:24:58.2132730Z      |
+bench	Setup	2026-11-15T04:24:58.2133049Z 3131 | fn direct_fold8_round0_chunked(a_state: &[F128], w_state: &[F128]) -> (F128, F128) {
+bench	Setup	2026-11-15T04:24:58.2133452Z      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2133612Z 
+bench	Setup	2026-11-15T04:24:58.2133734Z warning: function `sl2_wpar_enabled` is never used
+bench	Setup	2026-11-15T04:24:58.2134068Z     --> crates/flock-core/src/pcs/ring_switch.rs:3213:4
+bench	Setup	2026-11-15T04:24:58.2134351Z      |
+bench	Setup	2026-11-15T04:24:58.2134532Z 3213 | fn sl2_wpar_enabled() -> bool {
+bench	Setup	2026-11-15T04:24:58.2134778Z      |    ^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2134913Z 
+bench	Setup	2026-11-15T04:24:58.2135041Z warning: fields `a` and `eq` are never read
+bench	Setup	2026-11-15T04:24:58.2135347Z     --> crates/flock-core/src/pcs/ring_switch.rs:4657:5
+bench	Setup	2026-11-15T04:24:58.2136098Z      |
+bench	Setup	2026-11-15T04:24:58.2136284Z 4656 | struct PreParts {
+bench	Setup	2026-11-15T04:24:58.2136528Z      |        -------- fields in this struct
+bench	Setup	2026-11-15T04:24:58.2136785Z 4657 |     a: Vec<F128>,
+bench	Setup	2026-11-15T04:24:58.2136979Z      |     ^
+bench	Setup	2026-11-15T04:24:58.2137158Z 4658 |     eq: (Vec<F128>, Vec<F128>),
+bench	Setup	2026-11-15T04:24:58.2137388Z      |     ^^
+bench	Setup	2026-11-15T04:24:58.2137499Z 
+bench	Setup	2026-11-15T04:24:58.2137621Z warning: function `build_w_pair_table` is never used
+bench	Setup	2026-11-15T04:24:58.2137983Z     --> crates/flock-core/src/zerocheck/multilinear.rs:1413:4
+bench	Setup	2026-11-15T04:24:58.2138285Z      |
+bench	Setup	2026-11-15T04:24:58.2138514Z 1413 | fn build_w_pair_table(eq_lo: &[F128]) -> Vec<F128> {
+bench	Setup	2026-11-15T04:24:58.2138809Z      |    ^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2138941Z 
+bench	Setup	2026-11-15T04:24:58.2139104Z warning: function `fold3_b_canonical_lines` is never used
+bench	Setup	2026-11-15T04:24:58.2139500Z    --> crates/flock-core/src/zerocheck/multilinear/three_var.rs:243:15
+bench	Setup	2026-11-15T04:24:58.2139837Z     |
+bench	Setup	2026-11-15T04:24:58.2140187Z 243 | pub(crate) fn fold3_b_canonical_lines(table: &UniSkipFoldTable, rho: [F128; 3]) -> [F128; 4] {
+bench	Setup	2026-11-15T04:24:58.2140773Z     |               ^^^^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2140946Z 
+bench	Setup	2026-11-15T04:24:58.2141182Z warning: function `fold3_from_packed_and_round_pair_lookahead_into_with_eq` is never used
+bench	Setup	2026-11-15T04:24:58.2141687Z    --> crates/flock-core/src/zerocheck/multilinear/three_var.rs:330:15
+bench	Setup	2026-11-15T04:24:58.2142015Z     |
+bench	Setup	2026-11-15T04:24:58.2142290Z 330 | pub(crate) fn fold3_from_packed_and_round_pair_lookahead_into_with_eq(
+bench	Setup	2026-11-15T04:24:58.2142676Z     |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2142889Z 
+bench	Setup	2026-11-15T04:24:58.2143015Z warning: function `sl1_lift_m4rm_enabled` is never used
+bench	Setup	2026-11-15T04:24:58.2143382Z    --> crates/flock-core/src/zerocheck/univariate_skip.rs:357:4
+bench	Setup	2026-11-15T04:24:58.2143687Z     |
+bench	Setup	2026-11-15T04:24:58.2143873Z 357 | fn sl1_lift_m4rm_enabled() -> bool {
+bench	Setup	2026-11-15T04:24:58.2144134Z     |    ^^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:24:58.2144276Z 
+bench	Setup	2026-11-15T04:25:00.7535905Z    Compiling flock-prover v0.1.0 (/home/runner/work/flock-actions/flock-actions/crates/flock-prover)
+bench	Setup	2026-11-15T04:25:01.0711302Z warning: unused import: `Ordering`
+bench	Setup	2026-11-15T04:25:01.0713342Z   --> crates/flock-prover/src/r1cs_hashes/blake3_zregen.rs:22:37
+bench	Setup	2026-11-15T04:25:01.0714232Z    |
+bench	Setup	2026-11-15T04:25:01.0715166Z 22 | use std::sync::atomic::{AtomicBool, Ordering};
+bench	Setup	2026-11-15T04:25:01.0716220Z    |                                     ^^^^^^^^
+bench	Setup	2026-11-15T04:25:01.0717079Z    |
+bench	Setup	2026-11-15T04:25:01.0717969Z    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+bench	Setup	2026-11-15T04:25:01.0718575Z 
+bench	Setup	2026-11-15T04:25:03.3667405Z warning: variable does not need to be mutable
+bench	Setup	2026-11-15T04:25:03.3669223Z     --> crates/flock-prover/src/prover.rs:1539:37
+bench	Setup	2026-11-15T04:25:03.3670113Z      |
+bench	Setup	2026-11-15T04:25:03.3670919Z 1539 |     let ((commitment, prover_data), mut ab_inner) = in_commit_phase_pool(r1cs.m, || {
+bench	Setup	2026-11-15T04:25:03.3671976Z      |                                     ----^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.3672708Z      |                                     |
+bench	Setup	2026-11-15T04:25:03.3673432Z      |                                     help: remove this `mut`
+bench	Setup	2026-11-15T04:25:03.3674143Z      |
+bench	Setup	2026-11-15T04:25:03.3674805Z      = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+bench	Setup	2026-11-15T04:25:03.3675775Z 
+bench	Setup	2026-11-15T04:25:03.4737072Z warning: unnecessary `unsafe` block
+bench	Setup	2026-11-15T04:25:03.4738666Z     --> crates/flock-prover/src/r1cs_hashes/blake3_witgen8.rs:4967:71
+bench	Setup	2026-11-15T04:25:03.4739354Z      |
+bench	Setup	2026-11-15T04:25:03.4739937Z 4967 |  unsafe fn drain_window_rows<const COLS:usize>(&self,base_word:usize){unsafe{
+bench	Setup	2026-11-15T04:25:03.4740997Z      |                                                                       ^^^^^^ unnecessary `unsafe` block
+bench	Setup	2026-11-15T04:25:03.4741660Z      |
+bench	Setup	2026-11-15T04:25:03.4742168Z      = note: `#[warn(unused_unsafe)]` (part of `#[warn(unused)]`) on by default
+bench	Setup	2026-11-15T04:25:03.4743240Z 
+bench	Setup	2026-11-15T04:25:03.5460723Z warning: unused variable: `commit_ctx`
+bench	Setup	2026-11-15T04:25:03.5461635Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2960:5
+bench	Setup	2026-11-15T04:25:03.5462279Z      |
+bench	Setup	2026-11-15T04:25:03.5462709Z 2960 |     commit_ctx: Option<&mut WitnessCommitContext<'_>>,
+bench	Setup	2026-11-15T04:25:03.5463576Z      |     ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_commit_ctx`
+bench	Setup	2026-11-15T04:25:03.5464317Z      |
+bench	Setup	2026-11-15T04:25:03.5464855Z      = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+bench	Setup	2026-11-15T04:25:03.5465380Z 
+bench	Setup	2026-11-15T04:25:03.5465793Z warning: unused variable: `ab1_hole`
+bench	Setup	2026-11-15T04:25:03.5466354Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:3020:9
+bench	Setup	2026-11-15T04:25:03.5466912Z      |
+bench	Setup	2026-11-15T04:25:03.5467616Z 3020 |     let ab1_hole = flock_core::zerocheck::univariate_skip_optimized::ab1_hole_layout_enabled();
+bench	Setup	2026-11-15T04:25:03.5468647Z      |         ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_ab1_hole`
+bench	Setup	2026-11-15T04:25:03.5469230Z 
+bench	Setup	2026-11-15T04:25:03.8865932Z warning: fields `params` and `odd_tail` are never read
+bench	Setup	2026-11-15T04:25:03.8867048Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2223:5
+bench	Setup	2026-11-15T04:25:03.8867746Z      |
+bench	Setup	2026-11-15T04:25:03.8868244Z 2222 | struct WitnessCommitContext<'a> {
+bench	Setup	2026-11-15T04:25:03.8868920Z      |        -------------------- fields in this struct
+bench	Setup	2026-11-15T04:25:03.8869665Z 2223 |     params: &'a flock_core::pcs::PcsParams,
+bench	Setup	2026-11-15T04:25:03.8870287Z      |     ^^^^^^
+bench	Setup	2026-11-15T04:25:03.8870752Z 2224 |     odd_tail: usize,
+bench	Setup	2026-11-15T04:25:03.8871255Z      |     ^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8871718Z      |
+bench	Setup	2026-11-15T04:25:03.8872297Z      = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+bench	Setup	2026-11-15T04:25:03.8872911Z 
+bench	Setup	2026-11-15T04:25:03.8873246Z warning: method `ranked_resident` is never used
+bench	Setup	2026-11-15T04:25:03.8873986Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2230:8
+bench	Setup	2026-11-15T04:25:03.8874692Z      |
+bench	Setup	2026-11-15T04:25:03.8875149Z 2229 | impl WitnessCommitContext<'_> {
+bench	Setup	2026-11-15T04:25:03.8876010Z      | ----------------------------- method in this implementation
+bench	Setup	2026-11-15T04:25:03.8876689Z 2230 |     fn ranked_resident(&self) -> bool {
+bench	Setup	2026-11-15T04:25:03.8877238Z      |        ^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8877584Z 
+bench	Setup	2026-11-15T04:25:03.8878074Z warning: function `generate_witness_with_ab_packed_and_round1_inner_impl` is never used
+bench	Setup	2026-11-15T04:25:03.8878931Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2354:4
+bench	Setup	2026-11-15T04:25:03.8879510Z      |
+bench	Setup	2026-11-15T04:25:03.8880075Z 2354 | fn generate_witness_with_ab_packed_and_round1_inner_impl(
+bench	Setup	2026-11-15T04:25:03.8880734Z      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8881184Z 
+bench	Setup	2026-11-15T04:25:03.8881813Z warning: function `generate_witness_with_ab_packed_and_round1_inner_impl_ex` is never used
+bench	Setup	2026-11-15T04:25:03.8882716Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2375:4
+bench	Setup	2026-11-15T04:25:03.8883340Z      |
+bench	Setup	2026-11-15T04:25:03.8883884Z 2375 | fn generate_witness_with_ab_packed_and_round1_inner_impl_ex(
+bench	Setup	2026-11-15T04:25:03.8884628Z      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8885089Z 
+bench	Setup	2026-11-15T04:25:03.8885866Z warning: function `generate_witness_with_ab_packed_and_round1_inner_impl_tuned` is never used
+bench	Setup	2026-11-15T04:25:03.8886834Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2399:4
+bench	Setup	2026-11-15T04:25:03.8887455Z      |
+bench	Setup	2026-11-15T04:25:03.8888007Z 2399 | fn generate_witness_with_ab_packed_and_round1_inner_impl_tuned(
+bench	Setup	2026-11-15T04:25:03.8888723Z      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8889184Z 
+bench	Setup	2026-11-15T04:25:03.8889602Z warning: variants `ForceGeneric` and `ForceExact` are never constructed
+bench	Setup	2026-11-15T04:25:03.8890385Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2825:5
+bench	Setup	2026-11-15T04:25:03.8890995Z      |
+bench	Setup	2026-11-15T04:25:03.8891412Z 2823 | enum RankedClosedDispatch {
+bench	Setup	2026-11-15T04:25:03.8892343Z      |      -------------------- variants in this enum
+bench	Setup	2026-11-15T04:25:03.8892908Z 2824 |     Auto,
+bench	Setup	2026-11-15T04:25:03.8893339Z 2825 |     ForceGeneric,
+bench	Setup	2026-11-15T04:25:03.8893793Z      |     ^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8894223Z 2826 |     ForceExact,
+bench	Setup	2026-11-15T04:25:03.8894665Z      |     ^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8895086Z      |
+bench	Setup	2026-11-15T04:25:03.8896208Z      = note: `RankedClosedDispatch` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+bench	Setup	2026-11-15T04:25:03.8897204Z 
+bench	Setup	2026-11-15T04:25:03.8897479Z warning: field `1` is never read
+bench	Setup	2026-11-15T04:25:03.8898077Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2830:88
+bench	Setup	2026-11-15T04:25:03.8898679Z      |
+bench	Setup	2026-11-15T04:25:03.8899868Z 2830 | ...ct SharedRankedClosedWindowPreps(&'static blake3_witgen8::RankedClosedWindowPreps, Option<Box<blake3_witgen8::RankedClosedWindowPreps>>);
+bench	Setup	2026-11-15T04:25:03.8901331Z      |       ----------------------------- field in this struct                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8902459Z      |
+bench	Setup	2026-11-15T04:25:03.8902886Z      = help: consider removing this field
+bench	Setup	2026-11-15T04:25:03.8903310Z 
+bench	Setup	2026-11-15T04:25:03.8903587Z warning: method `get` is never used
+bench	Setup	2026-11-15T04:25:03.8904759Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2834:8
+bench	Setup	2026-11-15T04:25:03.8905379Z      |
+bench	Setup	2026-11-15T04:25:03.8906013Z 2833 | impl SharedRankedClosedWindowPreps {
+bench	Setup	2026-11-15T04:25:03.8906680Z      | ---------------------------------- method in this implementation
+bench	Setup	2026-11-15T04:25:03.8907465Z 2834 |     fn get(&self) -> &blake3_witgen8::RankedClosedWindowPreps {
+bench	Setup	2026-11-15T04:25:03.8908104Z      |        ^^^
+bench	Setup	2026-11-15T04:25:03.8908417Z 
+bench	Setup	2026-11-15T04:25:03.8908773Z warning: function `generate_round1_inner_octa` is never used
+bench	Setup	2026-11-15T04:25:03.8909486Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2898:4
+bench	Setup	2026-11-15T04:25:03.8910079Z      |
+bench	Setup	2026-11-15T04:25:03.8910500Z 2898 | fn generate_round1_inner_octa(
+bench	Setup	2026-11-15T04:25:03.8911011Z      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8911383Z 
+bench	Setup	2026-11-15T04:25:03.8911875Z warning: function `generate_round1_inner_octa_with_ranked_closed_dispatch` is never used
+bench	Setup	2026-11-15T04:25:03.8912742Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2927:4
+bench	Setup	2026-11-15T04:25:03.8913331Z      |
+bench	Setup	2026-11-15T04:25:03.8913840Z 2927 | fn generate_round1_inner_octa_with_ranked_closed_dispatch(
+bench	Setup	2026-11-15T04:25:03.8914532Z      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8914966Z 
+bench	Setup	2026-11-15T04:25:03.8915278Z warning: constant `BYTES_PER_BLOCK` is never used
+bench	Setup	2026-11-15T04:25:03.8916153Z   --> crates/flock-prover/src/r1cs_hashes/blake3_witgen8.rs:54:7
+bench	Setup	2026-11-15T04:25:03.8916772Z    |
+bench	Setup	2026-11-15T04:25:03.8917201Z 54 | const BYTES_PER_BLOCK: usize = K / 8;
+bench	Setup	2026-11-15T04:25:03.8917731Z    |       ^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8918079Z 
+bench	Setup	2026-11-15T04:25:03.8918352Z warning: field `ab_pend` is never read
+bench	Setup	2026-11-15T04:25:03.8919003Z     --> crates/flock-prover/src/r1cs_hashes/blake3_witgen8.rs:1304:16
+bench	Setup	2026-11-15T04:25:03.8919657Z      |
+bench	Setup	2026-11-15T04:25:03.8920086Z 1279 | pub(crate) struct StreamProj<'t> {
+bench	Setup	2026-11-15T04:25:03.8920651Z      |                   ---------- field in this struct
+bench	Setup	2026-11-15T04:25:03.8921190Z ...
+bench	Setup	2026-11-15T04:25:03.8921614Z 1304 |     pub(crate) ab_pend: *mut AbPend,
+bench	Setup	2026-11-15T04:25:03.8922154Z      |                ^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8922508Z 
+bench	Setup	2026-11-15T04:25:03.8922819Z warning: associated function `new` is never used
+bench	Setup	2026-11-15T04:25:03.8923509Z     --> crates/flock-prover/src/r1cs_hashes/blake3_witgen8.rs:2026:25
+bench	Setup	2026-11-15T04:25:03.8924147Z      |
+bench	Setup	2026-11-15T04:25:03.8924537Z 2025 | impl AbPend {
+bench	Setup	2026-11-15T04:25:03.8925062Z      | ----------- associated function in this implementation
+bench	Setup	2026-11-15T04:25:03.8925891Z 2026 |     pub(crate) const fn new() -> Self {
+bench	Setup	2026-11-15T04:25:03.8926473Z      |                         ^^^
+bench	Setup	2026-11-15T04:25:03.8926847Z 
+bench	Setup	2026-11-15T04:25:03.8927684Z warning: static `SB1_DEFER_ON` is never used
+bench	Setup	2026-11-15T04:25:03.8928389Z     --> crates/flock-prover/src/r1cs_hashes/blake3_witgen8.rs:2030:19
+bench	Setup	2026-11-15T04:25:03.8929046Z      |
+bench	Setup	2026-11-15T04:25:03.8929600Z 2030 | pub(crate) static SB1_DEFER_ON: std::sync::LazyLock<bool> =
+bench	Setup	2026-11-15T04:25:03.8930241Z      |                   ^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8930622Z 
+bench	Setup	2026-11-15T04:25:03.8930912Z warning: static `FORCE_OFF` is never used
+bench	Setup	2026-11-15T04:25:03.8931561Z   --> crates/flock-prover/src/r1cs_hashes/blake3_zregen.rs:25:19
+bench	Setup	2026-11-15T04:25:03.8932181Z    |
+bench	Setup	2026-11-15T04:25:03.8932718Z 25 | pub(crate) static FORCE_OFF: AtomicBool = AtomicBool::new(false);
+bench	Setup	2026-11-15T04:25:03.8933385Z    |                   ^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8933742Z 
+bench	Setup	2026-11-15T04:25:03.8934031Z warning: static `REGEN_FOLDS` is never used
+bench	Setup	2026-11-15T04:25:03.8934694Z   --> crates/flock-prover/src/r1cs_hashes/blake3_zregen.rs:27:19
+bench	Setup	2026-11-15T04:25:03.8935322Z    |
+bench	Setup	2026-11-15T04:25:03.8936202Z 27 | pub(crate) static REGEN_FOLDS: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+bench	Setup	2026-11-15T04:25:03.8937260Z    |                   ^^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8937634Z 
+bench	Setup	2026-11-15T04:25:03.8937956Z warning: static `REGEN_MATERIALIZES` is never used
+bench	Setup	2026-11-15T04:25:03.8938662Z   --> crates/flock-prover/src/r1cs_hashes/blake3_zregen.rs:28:19
+bench	Setup	2026-11-15T04:25:03.8939302Z    |
+bench	Setup	2026-11-15T04:25:03.8939904Z 28 | pub(crate) static REGEN_MATERIALIZES: std::sync::atomic::AtomicUsize =
+bench	Setup	2026-11-15T04:25:03.8940605Z    |                   ^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8940997Z 
+bench	Setup	2026-11-15T04:25:03.8941424Z warning: function `fused_fold_enabled` is never used
+bench	Setup	2026-11-15T04:25:03.8942149Z   --> crates/flock-prover/src/r1cs_hashes/blake3_zregen.rs:33:15
+bench	Setup	2026-11-15T04:25:03.8942781Z    |
+bench	Setup	2026-11-15T04:25:03.8943229Z 33 | pub(crate) fn fused_fold_enabled()->bool {
+bench	Setup	2026-11-15T04:25:03.8943807Z    |               ^^^^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8944204Z 
+bench	Setup	2026-11-15T04:25:03.8944530Z warning: function `z_elide_enabled` is never used
+bench	Setup	2026-11-15T04:25:03.8945252Z   --> crates/flock-prover/src/r1cs_hashes/blake3_zregen.rs:40:15
+bench	Setup	2026-11-15T04:25:03.8946073Z    |
+bench	Setup	2026-11-15T04:25:03.8946528Z 40 | pub(crate) fn z_elide_enabled() -> bool {
+bench	Setup	2026-11-15T04:25:03.8947099Z    |               ^^^^^^^^^^^^^^^
+bench	Setup	2026-11-15T04:25:03.8947495Z 
+bench	Setup	2026-11-15T04:25:27.2176891Z warning: `flock-core` (lib) generated 44 warnings (run `cargo fix --lib -p flock-core` to apply 16 suggestions)
+bench	Setup	2026-11-15T04:25:34.4121460Z warning: `flock-prover` (lib) generated 24 warnings (run `cargo fix --lib -p flock-prover` to apply 4 suggestions)
+bench	Setup	2026-11-15T04:25:34.4123269Z    Compiling flock-benchmark-worker v0.1.0 (/home/runner/work/flock-actions/flock-actions/benchmark-tools/worker)
+bench	Setup	2026-11-15T04:25:57.9084071Z     Finished `challenge` profile [optimized + debuginfo] target(s) in 1m 14s
+bench	Setup	2026-11-15T04:25:57.9137696Z candidate worker:  current checkout
+bench	Setup	2026-11-15T04:25:57.9138167Z trusted verifier: committed binary (checksum verified)
+bench	Setup	2026-11-15T04:25:57.9262847Z Rust toolchain:    rustc 1.97.0 (2d8144b78 2026-07-07)
+bench	Setup	2026-11-15T04:25:57.9263359Z C linker:          /usr/bin/cc
+bench	Benchmark	﻿2026-11-15T04:25:57.9318352Z ##[group]Run set -o pipefail
+bench	Benchmark	2026-11-15T04:25:57.9318697Z ^[[36;1mset -o pipefail^[[0m
+bench	Benchmark	2026-11-15T04:25:57.9318958Z ^[[36;1m./benchmark.sh 2>&1 | tee bench.log^[[0m
+bench	Benchmark	2026-11-15T04:25:57.9367821Z shell: /usr/bin/bash -e {0}
+bench	Benchmark	2026-11-15T04:25:57.9368074Z env:
+bench	Benchmark	2026-11-15T04:25:57.9368261Z   BLAKE3_LOG2: 18
+bench	Benchmark	2026-11-15T04:25:57.9368466Z   BLAKE3_THREADS: 4
+bench	Benchmark	2026-11-15T04:25:57.9368667Z   BLAKE3_WARMUP_RUNS: 5
+bench	Benchmark	2026-11-15T04:25:57.9368877Z   BLAKE3_RUNS: 30
+bench	Benchmark	2026-11-15T04:25:57.9369072Z   FLOCK_REQUIRE_SANDBOX: 0
+bench	Benchmark	2026-11-15T04:25:57.9369388Z   CC: /usr/bin/cc
+bench	Benchmark	2026-11-15T04:25:57.9369582Z ##[endgroup]
+bench	Benchmark	2026-11-15T04:25:57.9563880Z flock_benchmark_verifier: OK
+bench	Benchmark	2026-11-15T04:25:57.9993564Z warning: unused import: `fold2_plain_and_round_pair_lookahead_into_lm`
+bench	Benchmark	2026-11-15T04:25:57.9994391Z   --> crates/flock-core/src/zerocheck.rs:43:5
+bench	Benchmark	2026-11-15T04:25:57.9995297Z    |
+bench	Benchmark	2026-11-15T04:25:57.9996102Z 43 |     fold2_plain_and_round_pair_lookahead_into_lm, fold2_plain_and_round4_into,
+bench	Benchmark	2026-11-15T04:25:57.9996844Z    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:57.9997357Z    |
+bench	Benchmark	2026-11-15T04:25:57.9997837Z    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+bench	Benchmark	2026-11-15T04:25:57.9998333Z 
+bench	Benchmark	2026-11-15T04:25:57.9998533Z warning: unused variable: `z_canonical`
+bench	Benchmark	2026-11-15T04:25:57.9999035Z    --> crates/flock-core/src/lincheck.rs:987:9
+bench	Benchmark	2026-11-15T04:25:57.9999517Z     |
+bench	Benchmark	2026-11-15T04:25:57.9999823Z 987 |         z_canonical: &[F128],
+bench	Benchmark	2026-11-15T04:25:58.0000488Z     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_z_canonical`
+bench	Benchmark	2026-11-15T04:25:58.0001161Z     |
+bench	Benchmark	2026-11-15T04:25:58.0001647Z     = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+bench	Benchmark	2026-11-15T04:25:58.0002161Z 
+bench	Benchmark	2026-11-15T04:25:58.0002313Z warning: unused variable: `k`
+bench	Benchmark	2026-11-15T04:25:58.0002762Z    --> crates/flock-core/src/lincheck.rs:989:9
+bench	Benchmark	2026-11-15T04:25:58.0003229Z     |
+bench	Benchmark	2026-11-15T04:25:58.0003510Z 989 |         k: usize,
+bench	Benchmark	2026-11-15T04:25:58.0004024Z     |         ^ help: if this is intentional, prefix it with an underscore: `_k`
+bench	Benchmark	2026-11-15T04:25:58.0004519Z 
+bench	Benchmark	2026-11-15T04:25:58.0004689Z warning: unused variable: `eq8_indices`
+bench	Benchmark	2026-11-15T04:25:58.0005178Z    --> crates/flock-core/src/lincheck.rs:991:9
+bench	Benchmark	2026-11-15T04:25:58.0005798Z     |
+bench	Benchmark	2026-11-15T04:25:58.0006230Z 991 |         eq8_indices: impl Fn([usize; 8]) -> [F128; 8] + Sync,
+bench	Benchmark	2026-11-15T04:25:58.0007048Z     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_eq8_indices`
+bench	Benchmark	2026-11-15T04:25:58.0007611Z 
+bench	Benchmark	2026-11-15T04:25:58.0007782Z warning: unused variable: `compact`
+bench	Benchmark	2026-11-15T04:25:58.0008345Z     --> crates/flock-core/src/ntt/additive_ntt_f128.rs:3731:48
+bench	Benchmark	2026-11-15T04:25:58.0008880Z      |
+bench	Benchmark	2026-11-15T04:25:58.0009341Z 3731 |         let seed = |bufp: *mut F128, r: usize, compact: *const F128| {
+bench	Benchmark	2026-11-15T04:25:58.0010259Z      |                                                ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_compact`
+bench	Benchmark	2026-11-15T04:25:58.0010867Z 
+bench	Benchmark	2026-11-15T04:25:58.0011043Z warning: unused variable: `seed_sub`
+bench	Benchmark	2026-11-15T04:25:58.0011596Z     --> crates/flock-core/src/ntt/additive_ntt_f128.rs:4324:9
+bench	Benchmark	2026-11-15T04:25:58.0012114Z      |
+bench	Benchmark	2026-11-15T04:25:58.0012453Z 4324 |         seed_sub: Option<(&[F128], usize)>,
+bench	Benchmark	2026-11-15T04:25:58.0013142Z      |         ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_seed_sub`
+bench	Benchmark	2026-11-15T04:25:58.0013679Z 
+bench	Benchmark	2026-11-15T04:25:58.0013843Z warning: unused variable: `dsteal_done`
+bench	Benchmark	2026-11-15T04:25:58.0014401Z     --> crates/flock-core/src/ntt/additive_ntt_f128.rs:4766:13
+bench	Benchmark	2026-11-15T04:25:58.0014926Z      |
+bench	Benchmark	2026-11-15T04:25:58.0015254Z 4766 |         let dsteal_done = &dsteal_done;
+bench	Benchmark	2026-11-15T04:25:58.0016174Z      |             ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dsteal_done`
+bench	Benchmark	2026-11-15T04:25:58.0016739Z 
+bench	Benchmark	2026-11-15T04:25:58.0016896Z warning: unused variable: `raw7`
+bench	Benchmark	2026-11-15T04:25:58.0017404Z     --> crates/flock-core/src/ntt/additive_ntt_f128.rs:6166:5
+bench	Benchmark	2026-11-15T04:25:58.0018314Z      |
+bench	Benchmark	2026-11-15T04:25:58.0018627Z 6166 |     raw7: bool,
+bench	Benchmark	2026-11-15T04:25:58.0019167Z      |     ^^^^ help: if this is intentional, prefix it with an underscore: `_raw7`
+bench	Benchmark	2026-11-15T04:25:58.0019677Z 
+bench	Benchmark	2026-11-15T04:25:58.0019869Z warning: variable does not need to be mutable
+bench	Benchmark	2026-11-15T04:25:58.0020412Z     --> crates/flock-core/src/pcs/ligerito.rs:2487:13
+bench	Benchmark	2026-11-15T04:25:58.0020888Z      |
+bench	Benchmark	2026-11-15T04:25:58.0021199Z 2487 |         let mut handled = false;
+bench	Benchmark	2026-11-15T04:25:58.0021629Z      |             ----^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0021992Z      |             |
+bench	Benchmark	2026-11-15T04:25:58.0022340Z      |             help: remove this `mut`
+bench	Benchmark	2026-11-15T04:25:58.0022740Z      |
+bench	Benchmark	2026-11-15T04:25:58.0023180Z      = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+bench	Benchmark	2026-11-15T04:25:58.0023611Z 
+bench	Benchmark	2026-11-15T04:25:58.0024019Z warning: variable does not need to be mutable
+bench	Benchmark	2026-11-15T04:25:58.0024526Z     --> crates/flock-core/src/pcs/ligerito.rs:2838:13
+bench	Benchmark	2026-11-15T04:25:58.0025066Z      |
+bench	Benchmark	2026-11-15T04:25:58.0025353Z 2838 |         let mut handled = false;
+bench	Benchmark	2026-11-15T04:25:58.0025954Z      |             ----^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0026296Z      |             |
+bench	Benchmark	2026-11-15T04:25:58.0026622Z      |             help: remove this `mut`
+bench	Benchmark	2026-11-15T04:25:58.0026908Z 
+bench	Benchmark	2026-11-15T04:25:58.0027066Z warning: unused variable: `pre_a_cells`
+bench	Benchmark	2026-11-15T04:25:58.0027568Z     --> crates/flock-core/src/pcs/ring_switch.rs:4380:9
+bench	Benchmark	2026-11-15T04:25:58.0028023Z      |
+bench	Benchmark	2026-11-15T04:25:58.0028486Z 4380 |     let pre_a_cells: Vec<std::sync::Mutex<Option<PreParts>>> =
+bench	Benchmark	2026-11-15T04:25:58.0029264Z      |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_pre_a_cells`
+bench	Benchmark	2026-11-15T04:25:58.0029789Z 
+bench	Benchmark	2026-11-15T04:25:58.0029970Z warning: variable does not need to be mutable
+bench	Benchmark	2026-11-15T04:25:58.0030575Z    --> crates/flock-core/src/zerocheck/multilinear/three_var.rs:548:17
+bench	Benchmark	2026-11-15T04:25:58.0031133Z     |
+bench	Benchmark	2026-11-15T04:25:58.0031533Z 548 |             let mut la7 = [F128::ZERO; 18];
+bench	Benchmark	2026-11-15T04:25:58.0031980Z     |                 ----^^^
+bench	Benchmark	2026-11-15T04:25:58.0032325Z     |                 |
+bench	Benchmark	2026-11-15T04:25:58.0032669Z     |                 help: remove this `mut`
+bench	Benchmark	2026-11-15T04:25:58.0032967Z 
+bench	Benchmark	2026-11-15T04:25:58.0033115Z warning: unused variable: `pre_wtab`
+bench	Benchmark	2026-11-15T04:25:58.0033673Z    --> crates/flock-core/src/zerocheck/multilinear/three_var.rs:405:5
+bench	Benchmark	2026-11-15T04:25:58.0034217Z     |
+bench	Benchmark	2026-11-15T04:25:58.0034504Z 405 |     pre_wtab: Option<&[F128]>,
+bench	Benchmark	2026-11-15T04:25:58.0035087Z     |     ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_pre_wtab`
+bench	Benchmark	2026-11-15T04:25:58.0035834Z 
+bench	Benchmark	2026-11-15T04:25:58.0035987Z warning: unused variable: `kappa6`
+bench	Benchmark	2026-11-15T04:25:58.0036549Z    --> crates/flock-core/src/zerocheck/multilinear/three_var.rs:534:9
+bench	Benchmark	2026-11-15T04:25:58.0037094Z     |
+bench	Benchmark	2026-11-15T04:25:58.0037626Z 534 |     let kappa6 = if casc { (F128::ONE + r_next5[2]) * r_next5[2].inv() } else { F128::ZERO };
+bench	Benchmark	2026-11-15T04:25:58.0038477Z     |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_kappa6`
+bench	Benchmark	2026-11-15T04:25:58.0038972Z 
+bench	Benchmark	2026-11-15T04:25:58.0039153Z warning: variable does not need to be mutable
+bench	Benchmark	2026-11-15T04:25:58.0039711Z     --> crates/flock-core/src/zerocheck/multilinear.rs:3785:17
+bench	Benchmark	2026-11-15T04:25:58.0040225Z      |
+bench	Benchmark	2026-11-15T04:25:58.0040543Z 3785 |             let mut la7 = [F128::ZERO; 18];
+bench	Benchmark	2026-11-15T04:25:58.0040983Z      |                 ----^^^
+bench	Benchmark	2026-11-15T04:25:58.0041331Z      |                 |
+bench	Benchmark	2026-11-15T04:25:58.0041676Z      |                 help: remove this `mut`
+bench	Benchmark	2026-11-15T04:25:58.0041975Z 
+bench	Benchmark	2026-11-15T04:25:58.0042119Z warning: unused variable: `kappa_c`
+bench	Benchmark	2026-11-15T04:25:58.0042622Z     --> crates/flock-core/src/zerocheck/multilinear.rs:3694:9
+bench	Benchmark	2026-11-15T04:25:58.0043124Z      |
+bench	Benchmark	2026-11-15T04:25:58.0043631Z 3694 |     let kappa_c = if casc { (F128::ONE + r_next[2]) * r_next[2].inv() } else { F128::ZERO };
+bench	Benchmark	2026-11-15T04:25:58.0044484Z      |         ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_kappa_c`
+bench	Benchmark	2026-11-15T04:25:58.0045202Z 
+bench	Benchmark	2026-11-15T04:25:58.0045366Z warning: function `env_knob` is never used
+bench	Benchmark	2026-11-15T04:25:58.0046039Z     --> crates/flock-core/src/challenger.rs:1631:4
+bench	Benchmark	2026-11-15T04:25:58.0046470Z      |
+bench	Benchmark	2026-11-15T04:25:58.0046814Z 1631 | fn env_knob(name: &str, default: u64) -> u64 {
+bench	Benchmark	2026-11-15T04:25:58.0047262Z      |    ^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0047554Z      |
+bench	Benchmark	2026-11-15T04:25:58.0047983Z      = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+bench	Benchmark	2026-11-15T04:25:58.0048414Z 
+bench	Benchmark	2026-11-15T04:25:58.0048612Z warning: struct `TeamKnobs` is never constructed
+bench	Benchmark	2026-11-15T04:25:58.0049114Z     --> crates/flock-core/src/challenger.rs:1636:8
+bench	Benchmark	2026-11-15T04:25:58.0049549Z      |
+bench	Benchmark	2026-11-15T04:25:58.0049833Z 1636 | struct TeamKnobs {
+bench	Benchmark	2026-11-15T04:25:58.0050176Z      |        ^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0050584Z 
+bench	Benchmark	2026-11-15T04:25:58.0050682Z warning: static `TEAM` is never used
+bench	Benchmark	2026-11-15T04:25:58.0050981Z     --> crates/flock-core/src/challenger.rs:1660:8
+bench	Benchmark	2026-11-15T04:25:58.0051262Z      |
+bench	Benchmark	2026-11-15T04:25:58.0051613Z 1660 | static TEAM: std::sync::LazyLock<TeamKnobs> = std::sync::LazyLock::new(|| TeamKnobs {
+bench	Benchmark	2026-11-15T04:25:58.0052036Z      |        ^^^^
+bench	Benchmark	2026-11-15T04:25:58.0052175Z 
+bench	Benchmark	2026-11-15T04:25:58.0052288Z warning: struct `TeamPad` is never constructed
+bench	Benchmark	2026-11-15T04:25:58.0052611Z     --> crates/flock-core/src/challenger.rs:1801:8
+bench	Benchmark	2026-11-15T04:25:58.0052883Z      |
+bench	Benchmark	2026-11-15T04:25:58.0053113Z 1801 | struct TeamPad(std::sync::atomic::AtomicU64);
+bench	Benchmark	2026-11-15T04:25:58.0053395Z      |        ^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0053513Z 
+bench	Benchmark	2026-11-15T04:25:58.0053617Z warning: static `GRIND_WARM` is never used
+bench	Benchmark	2026-11-15T04:25:58.0053909Z     --> crates/flock-core/src/challenger.rs:2023:8
+bench	Benchmark	2026-11-15T04:25:58.0054172Z      |
+bench	Benchmark	2026-11-15T04:25:58.0054522Z 2023 | static GRIND_WARM: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
+bench	Benchmark	2026-11-15T04:25:58.0054933Z      |        ^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0055061Z 
+bench	Benchmark	2026-11-15T04:25:58.0055154Z warning: field `k` is never read
+bench	Benchmark	2026-11-15T04:25:58.0055618Z    --> crates/flock-core/src/lincheck.rs:359:5
+bench	Benchmark	2026-11-15T04:25:58.0056079Z     |
+bench	Benchmark	2026-11-15T04:25:58.0056265Z 357 | struct Sl1Warm {
+bench	Benchmark	2026-11-15T04:25:58.0056483Z     |        ------- field in this struct
+bench	Benchmark	2026-11-15T04:25:58.0056754Z 358 |     plan: *const LinearFoldPlan,
+bench	Benchmark	2026-11-15T04:25:58.0056998Z 359 |     k: usize,
+bench	Benchmark	2026-11-15T04:25:58.0057184Z     |     ^
+bench	Benchmark	2026-11-15T04:25:58.0057291Z 
+bench	Benchmark	2026-11-15T04:25:58.0057422Z warning: function `sl1_warm_start_tiles` is never used
+bench	Benchmark	2026-11-15T04:25:58.0057744Z    --> crates/flock-core/src/lincheck.rs:371:4
+bench	Benchmark	2026-11-15T04:25:58.0058005Z     |
+bench	Benchmark	2026-11-15T04:25:58.0058193Z 371 | fn sl1_warm_start_tiles() -> usize {
+bench	Benchmark	2026-11-15T04:25:58.0058443Z     |    ^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0058585Z 
+bench	Benchmark	2026-11-15T04:25:58.0058698Z warning: function `sl1_warm_budget` is never used
+bench	Benchmark	2026-11-15T04:25:58.0059008Z    --> crates/flock-core/src/lincheck.rs:378:4
+bench	Benchmark	2026-11-15T04:25:58.0059262Z     |
+bench	Benchmark	2026-11-15T04:25:58.0059436Z 378 | fn sl1_warm_budget() -> usize {
+bench	Benchmark	2026-11-15T04:25:58.0059675Z     |    ^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0059806Z 
+bench	Benchmark	2026-11-15T04:25:58.0059924Z warning: function `sl1_rc_warm_step` is never used
+bench	Benchmark	2026-11-15T04:25:58.0060229Z    --> crates/flock-core/src/lincheck.rs:402:15
+bench	Benchmark	2026-11-15T04:25:58.0060487Z     |
+bench	Benchmark	2026-11-15T04:25:58.0060724Z 402 | pub(crate) fn sl1_rc_warm_step(remaining_tiles: usize) {
+bench	Benchmark	2026-11-15T04:25:58.0061038Z     |               ^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0061196Z 
+bench	Benchmark	2026-11-15T04:25:58.0061292Z warning: method `map_cols` is never used
+bench	Benchmark	2026-11-15T04:25:58.0061577Z     --> crates/flock-core/src/lincheck.rs:1649:8
+bench	Benchmark	2026-11-15T04:25:58.0061840Z      |
+bench	Benchmark	2026-11-15T04:25:58.0062016Z 1594 | impl CscCircuit {
+bench	Benchmark	2026-11-15T04:25:58.0062269Z      | --------------- method in this implementation
+bench	Benchmark	2026-11-15T04:25:58.0062537Z ...
+bench	Benchmark	2026-11-15T04:25:58.0062851Z 1649 |     fn map_cols(&self, one_col: impl Fn(usize) -> F128 + Sync + Send) -> Vec<F128> {
+bench	Benchmark	2026-11-15T04:25:58.0063232Z      |        ^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0063496Z 
+bench	Benchmark	2026-11-15T04:25:58.0063615Z warning: function `eq8_from_factors` is never used
+bench	Benchmark	2026-11-15T04:25:58.0063926Z     --> crates/flock-core/src/lincheck.rs:2570:4
+bench	Benchmark	2026-11-15T04:25:58.0064192Z      |
+bench	Benchmark	2026-11-15T04:25:58.0064366Z 2570 | fn eq8_from_factors(
+bench	Benchmark	2026-11-15T04:25:58.0064580Z      |    ^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0064713Z 
+bench	Benchmark	2026-11-15T04:25:58.0064822Z warning: function `v2_dsteal_mode` is never used
+bench	Benchmark	2026-11-15T04:25:58.0065156Z    --> crates/flock-core/src/ntt/additive_ntt_f128.rs:512:4
+bench	Benchmark	2026-11-15T04:25:58.0065664Z     |
+bench	Benchmark	2026-11-15T04:25:58.0065957Z 512 | fn v2_dsteal_mode() -> u8 {
+bench	Benchmark	2026-11-15T04:25:58.0066198Z     |    ^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0066321Z 
+bench	Benchmark	2026-11-15T04:25:58.0066477Z warning: function `ntt_alias_load_order_enabled` is never used
+bench	Benchmark	2026-11-15T04:25:58.0066861Z    --> crates/flock-core/src/ntt/additive_ntt_f128.rs:758:15
+bench	Benchmark	2026-11-15T04:25:58.0067304Z     |
+bench	Benchmark	2026-11-15T04:25:58.0067538Z 758 | pub(crate) fn ntt_alias_load_order_enabled() -> bool {
+bench	Benchmark	2026-11-15T04:25:58.0067853Z     |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0068031Z 
+bench	Benchmark	2026-11-15T04:25:58.0068175Z warning: function `ranked_zero_odd_tail_lanes` is never used
+bench	Benchmark	2026-11-15T04:25:58.0068536Z    --> crates/flock-core/src/ntt/additive_ntt_f128.rs:945:15
+bench	Benchmark	2026-11-15T04:25:58.0068827Z     |
+bench	Benchmark	2026-11-15T04:25:58.0069135Z 945 | pub(crate) fn ranked_zero_odd_tail_lanes(log_d: usize, num_ntts: usize) -> usize {
+bench	Benchmark	2026-11-15T04:25:58.0069538Z     |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0069713Z 
+bench	Benchmark	2026-11-15T04:25:58.0069822Z warning: function `lf1_small_ntop` is never used
+bench	Benchmark	2026-11-15T04:25:58.0070155Z     --> crates/flock-core/src/ntt/additive_ntt_f128.rs:6371:4
+bench	Benchmark	2026-11-15T04:25:58.0070456Z      |
+bench	Benchmark	2026-11-15T04:25:58.0070644Z 6371 | fn lf1_small_ntop() -> usize {
+bench	Benchmark	2026-11-15T04:25:58.0070888Z      |    ^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0071027Z 
+bench	Benchmark	2026-11-15T04:25:58.0071157Z warning: function `rs_seed_sub_enabled` is never used
+bench	Benchmark	2026-11-15T04:25:58.0071512Z     --> crates/flock-core/src/ntt/additive_ntt_f128.rs:6383:4
+bench	Benchmark	2026-11-15T04:25:58.0071816Z      |
+bench	Benchmark	2026-11-15T04:25:58.0072007Z 6383 | fn rs_seed_sub_enabled() -> bool {
+bench	Benchmark	2026-11-15T04:25:58.0072265Z      |    ^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0072404Z 
+bench	Benchmark	2026-11-15T04:25:58.0072516Z warning: function `rs_seed6_mode` is never used
+bench	Benchmark	2026-11-15T04:25:58.0072847Z     --> crates/flock-core/src/ntt/additive_ntt_f128.rs:6389:4
+bench	Benchmark	2026-11-15T04:25:58.0073143Z      |
+bench	Benchmark	2026-11-15T04:25:58.0073331Z 6389 | fn rs_seed6_mode() -> (bool, bool) {
+bench	Benchmark	2026-11-15T04:25:58.0073591Z      |    ^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0073713Z 
+bench	Benchmark	2026-11-15T04:25:58.0073828Z warning: function `offw_krow_words` is never used
+bench	Benchmark	2026-11-15T04:25:58.0074145Z    --> crates/flock-core/src/ntt/inv_table.rs:700:21
+bench	Benchmark	2026-11-15T04:25:58.0074418Z     |
+bench	Benchmark	2026-11-15T04:25:58.0074698Z 700 | pub(crate) const fn offw_krow_words<const P: bool>(k: usize) -> usize {
+bench	Benchmark	2026-11-15T04:25:58.0075071Z     |                     ^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0075237Z 
+bench	Benchmark	2026-11-15T04:25:58.0075364Z warning: function `rs_f8_rebal_enabled` is never used
+bench	Benchmark	2026-11-15T04:25:58.0075920Z     --> crates/flock-core/src/pcs/ligerito.rs:7309:4
+bench	Benchmark	2026-11-15T04:25:58.0076197Z      |
+bench	Benchmark	2026-11-15T04:25:58.0076392Z 7309 | fn rs_f8_rebal_enabled() -> bool {
+bench	Benchmark	2026-11-15T04:25:58.0076646Z      |    ^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0076783Z 
+bench	Benchmark	2026-11-15T04:25:58.0076957Z warning: function `direct_fold8_l1_precommit_enabled` is never used
+bench	Benchmark	2026-11-15T04:25:58.0077348Z     --> crates/flock-core/src/pcs/ligerito.rs:7317:4
+bench	Benchmark	2026-11-15T04:25:58.0077616Z      |
+bench	Benchmark	2026-11-15T04:25:58.0077833Z 7317 | fn direct_fold8_l1_precommit_enabled() -> bool {
+bench	Benchmark	2026-11-15T04:25:58.0078128Z      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0078302Z 
+bench	Benchmark	2026-11-15T04:25:58.0078389Z warning: field `0` is never read
+bench	Benchmark	2026-11-15T04:25:58.0078668Z     --> crates/flock-core/src/pcs/ligerito.rs:8534:16
+bench	Benchmark	2026-11-15T04:25:58.0078952Z      |
+bench	Benchmark	2026-11-15T04:25:58.0079142Z 8534 | struct Gl2Line([usize; 8]);
+bench	Benchmark	2026-11-15T04:25:58.0079383Z      |        ------- ^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0079806Z      |        |
+bench	Benchmark	2026-11-15T04:25:58.0079998Z      |        field in this struct
+bench	Benchmark	2026-11-15T04:25:58.0080220Z      |
+bench	Benchmark	2026-11-15T04:25:58.0080405Z      = help: consider removing this field
+bench	Benchmark	2026-11-15T04:25:58.0080915Z      = note: `Gl2Line` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+bench	Benchmark	2026-11-15T04:25:58.0081344Z 
+bench	Benchmark	2026-11-15T04:25:58.0081494Z warning: function `direct_fold8_round0_chunked` is never used
+bench	Benchmark	2026-11-15T04:25:58.0081859Z     --> crates/flock-core/src/pcs/ring_switch.rs:3131:4
+bench	Benchmark	2026-11-15T04:25:58.0082142Z      |
+bench	Benchmark	2026-11-15T04:25:58.0082458Z 3131 | fn direct_fold8_round0_chunked(a_state: &[F128], w_state: &[F128]) -> (F128, F128) {
+bench	Benchmark	2026-11-15T04:25:58.0082866Z      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0083143Z 
+bench	Benchmark	2026-11-15T04:25:58.0083265Z warning: function `sl2_wpar_enabled` is never used
+bench	Benchmark	2026-11-15T04:25:58.0083599Z     --> crates/flock-core/src/pcs/ring_switch.rs:3213:4
+bench	Benchmark	2026-11-15T04:25:58.0083882Z      |
+bench	Benchmark	2026-11-15T04:25:58.0084068Z 3213 | fn sl2_wpar_enabled() -> bool {
+bench	Benchmark	2026-11-15T04:25:58.0084313Z      |    ^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0084451Z 
+bench	Benchmark	2026-11-15T04:25:58.0084551Z warning: fields `a` and `eq` are never read
+bench	Benchmark	2026-11-15T04:25:58.0084863Z     --> crates/flock-core/src/pcs/ring_switch.rs:4657:5
+bench	Benchmark	2026-11-15T04:25:58.0085146Z      |
+bench	Benchmark	2026-11-15T04:25:58.0085324Z 4656 | struct PreParts {
+bench	Benchmark	2026-11-15T04:25:58.0085763Z      |        -------- fields in this struct
+bench	Benchmark	2026-11-15T04:25:58.0086036Z 4657 |     a: Vec<F128>,
+bench	Benchmark	2026-11-15T04:25:58.0086238Z      |     ^
+bench	Benchmark	2026-11-15T04:25:58.0086422Z 4658 |     eq: (Vec<F128>, Vec<F128>),
+bench	Benchmark	2026-11-15T04:25:58.0086656Z      |     ^^
+bench	Benchmark	2026-11-15T04:25:58.0086766Z 
+bench	Benchmark	2026-11-15T04:25:58.0086891Z warning: function `build_w_pair_table` is never used
+bench	Benchmark	2026-11-15T04:25:58.0087257Z     --> crates/flock-core/src/zerocheck/multilinear.rs:1413:4
+bench	Benchmark	2026-11-15T04:25:58.0087561Z      |
+bench	Benchmark	2026-11-15T04:25:58.0087807Z 1413 | fn build_w_pair_table(eq_lo: &[F128]) -> Vec<F128> {
+bench	Benchmark	2026-11-15T04:25:58.0088110Z      |    ^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0088246Z 
+bench	Benchmark	2026-11-15T04:25:58.0088390Z warning: function `fold3_b_canonical_lines` is never used
+bench	Benchmark	2026-11-15T04:25:58.0088794Z    --> crates/flock-core/src/zerocheck/multilinear/three_var.rs:243:15
+bench	Benchmark	2026-11-15T04:25:58.0089130Z     |
+bench	Benchmark	2026-11-15T04:25:58.0089484Z 243 | pub(crate) fn fold3_b_canonical_lines(table: &UniSkipFoldTable, rho: [F128; 3]) -> [F128; 4] {
+bench	Benchmark	2026-11-15T04:25:58.0089927Z     |               ^^^^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0090098Z 
+bench	Benchmark	2026-11-15T04:25:58.0090333Z warning: function `fold3_from_packed_and_round_pair_lookahead_into_with_eq` is never used
+bench	Benchmark	2026-11-15T04:25:58.0090841Z    --> crates/flock-core/src/zerocheck/multilinear/three_var.rs:330:15
+bench	Benchmark	2026-11-15T04:25:58.0091179Z     |
+bench	Benchmark	2026-11-15T04:25:58.0091462Z 330 | pub(crate) fn fold3_from_packed_and_round_pair_lookahead_into_with_eq(
+bench	Benchmark	2026-11-15T04:25:58.0091863Z     |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0092077Z 
+bench	Benchmark	2026-11-15T04:25:58.0092213Z warning: function `sl1_lift_m4rm_enabled` is never used
+bench	Benchmark	2026-11-15T04:25:58.0092582Z    --> crates/flock-core/src/zerocheck/univariate_skip.rs:357:4
+bench	Benchmark	2026-11-15T04:25:58.0092895Z     |
+bench	Benchmark	2026-11-15T04:25:58.0093090Z 357 | fn sl1_lift_m4rm_enabled() -> bool {
+bench	Benchmark	2026-11-15T04:25:58.0093352Z     |    ^^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0093499Z 
+bench	Benchmark	2026-11-15T04:25:58.0093825Z warning: `flock-core` (lib) generated 44 warnings (run `cargo fix --lib -p flock-core` to apply 16 suggestions)
+bench	Benchmark	2026-11-15T04:25:58.0094328Z warning: unused import: `Ordering`
+bench	Benchmark	2026-11-15T04:25:58.0094653Z   --> crates/flock-prover/src/r1cs_hashes/blake3_zregen.rs:22:37
+bench	Benchmark	2026-11-15T04:25:58.0094970Z    |
+bench	Benchmark	2026-11-15T04:25:58.0095189Z 22 | use std::sync::atomic::{AtomicBool, Ordering};
+bench	Benchmark	2026-11-15T04:25:58.0095708Z    |                                     ^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0095974Z    |
+bench	Benchmark	2026-11-15T04:25:58.0096255Z    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+bench	Benchmark	2026-11-15T04:25:58.0096686Z 
+bench	Benchmark	2026-11-15T04:25:58.0096793Z warning: variable does not need to be mutable
+bench	Benchmark	2026-11-15T04:25:58.0097111Z     --> crates/flock-prover/src/prover.rs:1539:37
+bench	Benchmark	2026-11-15T04:25:58.0097381Z      |
+bench	Benchmark	2026-11-15T04:25:58.0097704Z 1539 |     let ((commitment, prover_data), mut ab_inner) = in_commit_phase_pool(r1cs.m, || {
+bench	Benchmark	2026-11-15T04:25:58.0098132Z      |                                     ----^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0098400Z      |                                     |
+bench	Benchmark	2026-11-15T04:25:58.0098681Z      |                                     help: remove this `mut`
+bench	Benchmark	2026-11-15T04:25:58.0098963Z      |
+bench	Benchmark	2026-11-15T04:25:58.0099224Z      = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+bench	Benchmark	2026-11-15T04:25:58.0099495Z 
+bench	Benchmark	2026-11-15T04:25:58.0099589Z warning: unnecessary `unsafe` block
+bench	Benchmark	2026-11-15T04:25:58.0100050Z     --> crates/flock-prover/src/r1cs_hashes/blake3_witgen8.rs:4967:71
+bench	Benchmark	2026-11-15T04:25:58.0100385Z      |
+bench	Benchmark	2026-11-15T04:25:58.0100687Z 4967 |  unsafe fn drain_window_rows<const COLS:usize>(&self,base_word:usize){unsafe{
+bench	Benchmark	2026-11-15T04:25:58.0101163Z      |                                                                       ^^^^^^ unnecessary `unsafe` block
+bench	Benchmark	2026-11-15T04:25:58.0101498Z      |
+bench	Benchmark	2026-11-15T04:25:58.0101766Z      = note: `#[warn(unused_unsafe)]` (part of `#[warn(unused)]`) on by default
+bench	Benchmark	2026-11-15T04:25:58.0102041Z 
+bench	Benchmark	2026-11-15T04:25:58.0102133Z warning: unused variable: `commit_ctx`
+bench	Benchmark	2026-11-15T04:25:58.0102444Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2960:5
+bench	Benchmark	2026-11-15T04:25:58.0102740Z      |
+bench	Benchmark	2026-11-15T04:25:58.0102978Z 2960 |     commit_ctx: Option<&mut WitnessCommitContext<'_>>,
+bench	Benchmark	2026-11-15T04:25:58.0103425Z      |     ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_commit_ctx`
+bench	Benchmark	2026-11-15T04:25:58.0103800Z      |
+bench	Benchmark	2026-11-15T04:25:58.0104083Z      = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+bench	Benchmark	2026-11-15T04:25:58.0104367Z 
+bench	Benchmark	2026-11-15T04:25:58.0104464Z warning: unused variable: `ab1_hole`
+bench	Benchmark	2026-11-15T04:25:58.0104776Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:3020:9
+bench	Benchmark	2026-11-15T04:25:58.0105204Z      |
+bench	Benchmark	2026-11-15T04:25:58.0105866Z 3020 |     let ab1_hole = flock_core::zerocheck::univariate_skip_optimized::ab1_hole_layout_enabled();
+bench	Benchmark	2026-11-15T04:25:58.0106644Z      |         ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_ab1_hole`
+bench	Benchmark	2026-11-15T04:25:58.0107032Z 
+bench	Benchmark	2026-11-15T04:25:58.0107194Z warning: fields `params` and `odd_tail` are never read
+bench	Benchmark	2026-11-15T04:25:58.0107686Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2223:5
+bench	Benchmark	2026-11-15T04:25:58.0108127Z      |
+bench	Benchmark	2026-11-15T04:25:58.0108414Z 2222 | struct WitnessCommitContext<'a> {
+bench	Benchmark	2026-11-15T04:25:58.0118628Z      |        -------------------- fields in this struct
+bench	Benchmark	2026-11-15T04:25:58.0119086Z 2223 |     params: &'a flock_core::pcs::PcsParams,
+bench	Benchmark	2026-11-15T04:25:58.0119402Z      |     ^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0119611Z 2224 |     odd_tail: usize,
+bench	Benchmark	2026-11-15T04:25:58.0119842Z      |     ^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0120041Z      |
+bench	Benchmark	2026-11-15T04:25:58.0120314Z      = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+bench	Benchmark	2026-11-15T04:25:58.0120592Z 
+bench	Benchmark	2026-11-15T04:25:58.0120706Z warning: method `ranked_resident` is never used
+bench	Benchmark	2026-11-15T04:25:58.0121066Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2230:8
+bench	Benchmark	2026-11-15T04:25:58.0121378Z      |
+bench	Benchmark	2026-11-15T04:25:58.0121572Z 2229 | impl WitnessCommitContext<'_> {
+bench	Benchmark	2026-11-15T04:25:58.0121891Z      | ----------------------------- method in this implementation
+bench	Benchmark	2026-11-15T04:25:58.0122234Z 2230 |     fn ranked_resident(&self) -> bool {
+bench	Benchmark	2026-11-15T04:25:58.0122503Z      |        ^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0122650Z 
+bench	Benchmark	2026-11-15T04:25:58.0122886Z warning: function `generate_witness_with_ab_packed_and_round1_inner_impl` is never used
+bench	Benchmark	2026-11-15T04:25:58.0123388Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2354:4
+bench	Benchmark	2026-11-15T04:25:58.0123691Z      |
+bench	Benchmark	2026-11-15T04:25:58.0123947Z 2354 | fn generate_witness_with_ab_packed_and_round1_inner_impl(
+bench	Benchmark	2026-11-15T04:25:58.0124498Z      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0124691Z 
+bench	Benchmark	2026-11-15T04:25:58.0124935Z warning: function `generate_witness_with_ab_packed_and_round1_inner_impl_ex` is never used
+bench	Benchmark	2026-11-15T04:25:58.0125607Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2375:4
+bench	Benchmark	2026-11-15T04:25:58.0126014Z      |
+bench	Benchmark	2026-11-15T04:25:58.0126282Z 2375 | fn generate_witness_with_ab_packed_and_round1_inner_impl_ex(
+bench	Benchmark	2026-11-15T04:25:58.0126644Z      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0126842Z 
+bench	Benchmark	2026-11-15T04:25:58.0127101Z warning: function `generate_witness_with_ab_packed_and_round1_inner_impl_tuned` is never used
+bench	Benchmark	2026-11-15T04:25:58.0127601Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2399:4
+bench	Benchmark	2026-11-15T04:25:58.0128061Z      |
+bench	Benchmark	2026-11-15T04:25:58.0128327Z 2399 | fn generate_witness_with_ab_packed_and_round1_inner_impl_tuned(
+bench	Benchmark	2026-11-15T04:25:58.0128696Z      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0128903Z 
+bench	Benchmark	2026-11-15T04:25:58.0129091Z warning: variants `ForceGeneric` and `ForceExact` are never constructed
+bench	Benchmark	2026-11-15T04:25:58.0129499Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2825:5
+bench	Benchmark	2026-11-15T04:25:58.0129798Z      |
+bench	Benchmark	2026-11-15T04:25:58.0129987Z 2823 | enum RankedClosedDispatch {
+bench	Benchmark	2026-11-15T04:25:58.0130264Z      |      -------------------- variants in this enum
+bench	Benchmark	2026-11-15T04:25:58.0130539Z 2824 |     Auto,
+bench	Benchmark	2026-11-15T04:25:58.0130738Z 2825 |     ForceGeneric,
+bench	Benchmark	2026-11-15T04:25:58.0130948Z      |     ^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0131151Z 2826 |     ForceExact,
+bench	Benchmark	2026-11-15T04:25:58.0131351Z      |     ^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0131539Z      |
+bench	Benchmark	2026-11-15T04:25:58.0132078Z      = note: `RankedClosedDispatch` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+bench	Benchmark	2026-11-15T04:25:58.0132624Z 
+bench	Benchmark	2026-11-15T04:25:58.0132711Z warning: field `1` is never read
+bench	Benchmark	2026-11-15T04:25:58.0133027Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2830:88
+bench	Benchmark	2026-11-15T04:25:58.0133336Z      |
+bench	Benchmark	2026-11-15T04:25:58.0133906Z 2830 | ...ct SharedRankedClosedWindowPreps(&'static blake3_witgen8::RankedClosedWindowPreps, Option<Box<blake3_witgen8::RankedClosedWindowPreps>>);
+bench	Benchmark	2026-11-15T04:25:58.0134737Z      |       ----------------------------- field in this struct                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0135167Z      |
+bench	Benchmark	2026-11-15T04:25:58.0135397Z      = help: consider removing this field
+bench	Benchmark	2026-11-15T04:25:58.0135843Z 
+bench	Benchmark	2026-11-15T04:25:58.0135943Z warning: method `get` is never used
+bench	Benchmark	2026-11-15T04:25:58.0136263Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2834:8
+bench	Benchmark	2026-11-15T04:25:58.0136577Z      |
+bench	Benchmark	2026-11-15T04:25:58.0136789Z 2833 | impl SharedRankedClosedWindowPreps {
+bench	Benchmark	2026-11-15T04:25:58.0137137Z      | ---------------------------------- method in this implementation
+bench	Benchmark	2026-11-15T04:25:58.0137544Z 2834 |     fn get(&self) -> &blake3_witgen8::RankedClosedWindowPreps {
+bench	Benchmark	2026-11-15T04:25:58.0137870Z      |        ^^^
+bench	Benchmark	2026-11-15T04:25:58.0137983Z 
+bench	Benchmark	2026-11-15T04:25:58.0138146Z warning: function `generate_round1_inner_octa` is never used
+bench	Benchmark	2026-11-15T04:25:58.0138532Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2898:4
+bench	Benchmark	2026-11-15T04:25:58.0138830Z      |
+bench	Benchmark	2026-11-15T04:25:58.0139015Z 2898 | fn generate_round1_inner_octa(
+bench	Benchmark	2026-11-15T04:25:58.0139266Z      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0139425Z 
+bench	Benchmark	2026-11-15T04:25:58.0139665Z warning: function `generate_round1_inner_octa_with_ranked_closed_dispatch` is never used
+bench	Benchmark	2026-11-15T04:25:58.0140143Z     --> crates/flock-prover/src/r1cs_hashes/blake3.rs:2927:4
+bench	Benchmark	2026-11-15T04:25:58.0140435Z      |
+bench	Benchmark	2026-11-15T04:25:58.0140695Z 2927 | fn generate_round1_inner_octa_with_ranked_closed_dispatch(
+bench	Benchmark	2026-11-15T04:25:58.0141047Z      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0141246Z 
+bench	Benchmark	2026-11-15T04:25:58.0141361Z warning: constant `BYTES_PER_BLOCK` is never used
+bench	Benchmark	2026-11-15T04:25:58.0141875Z   --> crates/flock-prover/src/r1cs_hashes/blake3_witgen8.rs:54:7
+bench	Benchmark	2026-11-15T04:25:58.0142188Z    |
+bench	Benchmark	2026-11-15T04:25:58.0142382Z 54 | const BYTES_PER_BLOCK: usize = K / 8;
+bench	Benchmark	2026-11-15T04:25:58.0142661Z    |       ^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0142796Z 
+bench	Benchmark	2026-11-15T04:25:58.0142895Z warning: field `ab_pend` is never read
+bench	Benchmark	2026-11-15T04:25:58.0143236Z     --> crates/flock-prover/src/r1cs_hashes/blake3_witgen8.rs:1304:16
+bench	Benchmark	2026-11-15T04:25:58.0143569Z      |
+bench	Benchmark	2026-11-15T04:25:58.0143762Z 1279 | pub(crate) struct StreamProj<'t> {
+bench	Benchmark	2026-11-15T04:25:58.0144054Z      |                   ---------- field in this struct
+bench	Benchmark	2026-11-15T04:25:58.0144317Z ...
+bench	Benchmark	2026-11-15T04:25:58.0144549Z 1304 |     pub(crate) ab_pend: *mut AbPend,
+bench	Benchmark	2026-11-15T04:25:58.0144811Z      |                ^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0145100Z 
+bench	Benchmark	2026-11-15T04:25:58.0145221Z warning: associated function `new` is never used
+bench	Benchmark	2026-11-15T04:25:58.0145913Z     --> crates/flock-prover/src/r1cs_hashes/blake3_witgen8.rs:2026:25
+bench	Benchmark	2026-11-15T04:25:58.0146267Z      |
+bench	Benchmark	2026-11-15T04:25:58.0146441Z 2025 | impl AbPend {
+bench	Benchmark	2026-11-15T04:25:58.0146696Z      | ----------- associated function in this implementation
+bench	Benchmark	2026-11-15T04:25:58.0147026Z 2026 |     pub(crate) const fn new() -> Self {
+bench	Benchmark	2026-11-15T04:25:58.0147305Z      |                         ^^^
+bench	Benchmark	2026-11-15T04:25:58.0147462Z 
+bench	Benchmark	2026-11-15T04:25:58.0147567Z warning: static `SB1_DEFER_ON` is never used
+bench	Benchmark	2026-11-15T04:25:58.0147924Z     --> crates/flock-prover/src/r1cs_hashes/blake3_witgen8.rs:2030:19
+bench	Benchmark	2026-11-15T04:25:58.0148267Z      |
+bench	Benchmark	2026-11-15T04:25:58.0148546Z 2030 | pub(crate) static SB1_DEFER_ON: std::sync::LazyLock<bool> =
+bench	Benchmark	2026-11-15T04:25:58.0148879Z      |                   ^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0149033Z 
+bench	Benchmark	2026-11-15T04:25:58.0149134Z warning: static `FORCE_OFF` is never used
+bench	Benchmark	2026-11-15T04:25:58.0149478Z   --> crates/flock-prover/src/r1cs_hashes/blake3_zregen.rs:25:19
+bench	Benchmark	2026-11-15T04:25:58.0149792Z    |
+bench	Benchmark	2026-11-15T04:25:58.0150059Z 25 | pub(crate) static FORCE_OFF: AtomicBool = AtomicBool::new(false);
+bench	Benchmark	2026-11-15T04:25:58.0150405Z    |                   ^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0150553Z 
+bench	Benchmark	2026-11-15T04:25:58.0150652Z warning: static `REGEN_FOLDS` is never used
+bench	Benchmark	2026-11-15T04:25:58.0150990Z   --> crates/flock-prover/src/r1cs_hashes/blake3_zregen.rs:27:19
+bench	Benchmark	2026-11-15T04:25:58.0151302Z    |
+bench	Benchmark	2026-11-15T04:25:58.0151681Z 27 | pub(crate) static REGEN_FOLDS: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+bench	Benchmark	2026-11-15T04:25:58.0152137Z    |                   ^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0152286Z 
+bench	Benchmark	2026-11-15T04:25:58.0152408Z warning: static `REGEN_MATERIALIZES` is never used
+bench	Benchmark	2026-11-15T04:25:58.0152766Z   --> crates/flock-prover/src/r1cs_hashes/blake3_zregen.rs:28:19
+bench	Benchmark	2026-11-15T04:25:58.0153075Z    |
+bench	Benchmark	2026-11-15T04:25:58.0153349Z 28 | pub(crate) static REGEN_MATERIALIZES: std::sync::atomic::AtomicUsize =
+bench	Benchmark	2026-11-15T04:25:58.0153715Z    |                   ^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0153884Z 
+bench	Benchmark	2026-11-15T04:25:58.0154006Z warning: function `fused_fold_enabled` is never used
+bench	Benchmark	2026-11-15T04:25:58.0154378Z   --> crates/flock-prover/src/r1cs_hashes/blake3_zregen.rs:33:15
+bench	Benchmark	2026-11-15T04:25:58.0154687Z    |
+bench	Benchmark	2026-11-15T04:25:58.0154885Z 33 | pub(crate) fn fused_fold_enabled()->bool {
+bench	Benchmark	2026-11-15T04:25:58.0155160Z    |               ^^^^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0155315Z 
+bench	Benchmark	2026-11-15T04:25:58.0155660Z warning: function `z_elide_enabled` is never used
+bench	Benchmark	2026-11-15T04:25:58.0156084Z   --> crates/flock-prover/src/r1cs_hashes/blake3_zregen.rs:40:15
+bench	Benchmark	2026-11-15T04:25:58.0156399Z    |
+bench	Benchmark	2026-11-15T04:25:58.0156596Z 40 | pub(crate) fn z_elide_enabled() -> bool {
+bench	Benchmark	2026-11-15T04:25:58.0156865Z    |               ^^^^^^^^^^^^^^^
+bench	Benchmark	2026-11-15T04:25:58.0157020Z 
+bench	Benchmark	2026-11-15T04:25:58.0157356Z warning: `flock-prover` (lib) generated 24 warnings (run `cargo fix --lib -p flock-prover` to apply 4 suggestions)
+bench	Benchmark	2026-11-15T04:25:58.0157968Z     Finished `challenge` profile [optimized + debuginfo] target(s) in 0.03s
+bench	Benchmark	2026-11-15T04:28:08.6743500Z warmup_trial=1/5 trial_score=21491.532 compressions_per_second seconds=12.197548222 verified=true included_in_score=false
+bench	Benchmark	2026-11-15T04:30:36.0713019Z warmup_trial=2/5 trial_score=21488.516 compressions_per_second seconds=12.199260270 verified=true included_in_score=false
+bench	Benchmark	2026-11-15T04:32:54.6168695Z warmup_trial=3/5 trial_score=21115.875 compressions_per_second seconds=12.414545936 verified=true included_in_score=false
+bench	Benchmark	2026-11-15T04:35:14.6810777Z warmup_trial=4/5 trial_score=20444.712 compressions_per_second seconds=12.822092852 verified=true included_in_score=false
+bench	Benchmark	2026-11-15T04:37:38.1035750Z warmup_trial=5/5 trial_score=20867.134 compressions_per_second seconds=12.562530287 verified=true included_in_score=false
+bench	Benchmark	2026-11-15T04:40:02.0621367Z measured_trial=1/30 trial_score=20880.472 compressions_per_second seconds=12.554505332 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T04:42:21.8893893Z measured_trial=2/30 trial_score=20982.863 compressions_per_second seconds=12.493242568 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T04:44:42.0166975Z measured_trial=3/30 trial_score=21287.048 compressions_per_second seconds=12.314718348 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T04:47:00.8480605Z measured_trial=4/30 trial_score=21170.122 compressions_per_second seconds=12.382734506 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T04:49:21.4022922Z measured_trial=5/30 trial_score=21126.522 compressions_per_second seconds=12.408289389 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T04:51:42.8942882Z measured_trial=6/30 trial_score=21120.104 compressions_per_second seconds=12.412059999 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T04:54:04.8126438Z measured_trial=7/30 trial_score=20430.323 compressions_per_second seconds=12.831123732 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T04:56:26.7936416Z measured_trial=8/30 trial_score=21510.636 compressions_per_second seconds=12.186715278 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T04:58:48.1373139Z measured_trial=9/30 trial_score=21395.845 compressions_per_second seconds=12.252098404 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:01:17.8245221Z measured_trial=10/30 trial_score=20931.150 compressions_per_second seconds=12.524108717 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:03:37.8056169Z measured_trial=11/30 trial_score=21117.601 compressions_per_second seconds=12.413531059 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:06:06.7875653Z measured_trial=12/30 trial_score=20698.677 compressions_per_second seconds=12.664770924 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:08:34.5097515Z measured_trial=13/30 trial_score=21387.356 compressions_per_second seconds=12.256961326 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:11:00.6165849Z measured_trial=14/30 trial_score=20917.733 compressions_per_second seconds=12.532141713 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:13:27.2555939Z measured_trial=15/30 trial_score=20869.919 compressions_per_second seconds=12.560853660 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:15:46.8709719Z measured_trial=16/30 trial_score=21255.110 compressions_per_second seconds=12.333222306 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:18:05.7594317Z measured_trial=17/30 trial_score=20054.864 compressions_per_second seconds=13.071342935 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:20:31.5636452Z measured_trial=18/30 trial_score=21288.477 compressions_per_second seconds=12.313891552 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:22:50.0156569Z measured_trial=19/30 trial_score=21134.773 compressions_per_second seconds=12.403445434 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:25:12.7076575Z measured_trial=20/30 trial_score=21171.304 compressions_per_second seconds=12.382043179 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:27:31.0966475Z measured_trial=21/30 trial_score=21514.742 compressions_per_second seconds=12.184389519 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:29:51.3368881Z measured_trial=22/30 trial_score=20825.394 compressions_per_second seconds=12.587708840 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:32:11.6932836Z measured_trial=23/30 trial_score=20846.241 compressions_per_second seconds=12.575120854 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:34:32.5943128Z measured_trial=24/30 trial_score=20556.250 compressions_per_second seconds=12.752520620 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:36:54.8008795Z measured_trial=25/30 trial_score=21302.814 compressions_per_second seconds=12.305604116 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:39:14.6035197Z measured_trial=26/30 trial_score=20440.473 compressions_per_second seconds=12.824752454 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:41:37.2143193Z measured_trial=27/30 trial_score=20139.332 compressions_per_second seconds=13.016519171 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:43:58.8826482Z measured_trial=28/30 trial_score=20630.690 compressions_per_second seconds=12.706506429 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:46:18.9142128Z measured_trial=29/30 trial_score=20961.432 compressions_per_second seconds=12.506015815 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:48:39.7598984Z measured_trial=30/30 trial_score=21101.849 compressions_per_second seconds=12.422797919 verified=true included_in_score=true
+bench	Benchmark	2026-11-15T05:48:40.9807275Z score=21042.188 compressions_per_second
+bench	Benchmark	2026-11-15T05:48:40.9812627Z # Flock BLAKE3 benchmark
+bench	Benchmark	2026-11-15T05:48:40.9812958Z 
+bench	Benchmark	2026-11-15T05:48:40.9813160Z - Batch: `262144`
+bench	Benchmark	2026-11-15T05:48:40.9813664Z - Threads: `4`
+bench	Benchmark	2026-11-15T05:48:40.9816936Z - Warm-up trials: `5` (verified, not scored)
+bench	Benchmark	2026-11-15T05:48:40.9819999Z - Measured trials: `30`
+bench	Benchmark	2026-11-15T05:48:40.9823212Z - Score: **21042.188 compressions/second**
+bench	Benchmark	2026-11-15T05:48:40.9832180Z - P10 latency: `12.256475034 s`
+bench	Benchmark	2026-11-15T05:48:40.9833924Z - Median latency: `12.458020244 s`
+bench	Benchmark	2026-11-15T05:48:40.9838208Z - Aggregate throughput: `20961.808 compressions/second`
+bench	Benchmark	2026-11-15T05:48:40.9846012Z - P90/P10 latency ratio: `1.046417`
+bench	Benchmark	2026-11-15T05:48:40.9849318Z - Largest proof: `438863` bytes
+bench	Benchmark	2026-11-15T05:48:40.9849826Z - Trusted verification: `passed`
+bench	Benchmark	2026-11-15T05:48:40.9853174Z - Candidate commit: `03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd`
+bench	Show score and repo tooling	﻿2026-11-15T05:48:41.0755689Z ##[group]Run echo "=== score.json ==="
+bench	Show score and repo tooling	2026-11-15T05:48:41.0761226Z ^[[36;1mecho "=== score.json ==="^[[0m
+bench	Show score and repo tooling	2026-11-15T05:48:41.0761962Z ^[[36;1mcat score.json 2>/dev/null || echo "NO SCORE (run failed)"^[[0m
+bench	Show score and repo tooling	2026-11-15T05:48:41.0765594Z ^[[36;1mif [ -f score.json ]; then^[[0m
+bench	Show score and repo tooling	2026-11-15T05:48:41.0769067Z ^[[36;1m  python3 -c "import json; d=json.load(open('score.json')); m=d['metrics']; print('SCORE:', d['score']); print('median_s:', m['median_seconds'], 'threads:', m['threads'], 'proof_B:', m['proof_bytes'], 'verified:', m['verified'])"^[[0m
+bench	Show score and repo tooling	2026-11-15T05:48:41.0770709Z ^[[36;1mfi^[[0m
+bench	Show score and repo tooling	2026-11-15T05:48:41.0773479Z ^[[36;1mecho "=== scripts/ (for differential tooling) ==="^[[0m
+bench	Show score and repo tooling	2026-11-15T05:48:41.0775926Z ^[[36;1mls -la scripts/ 2>/dev/null || true^[[0m
+bench	Show score and repo tooling	2026-11-15T05:48:41.0776565Z ^[[36;1mecho "=== tests available ==="^[[0m
+bench	Show score and repo tooling	2026-11-15T05:48:41.0780222Z ^[[36;1mls crates/flock-prover/tests/ crates/flock-core/tests/ 2>/dev/null || true^[[0m
+bench	Show score and repo tooling	2026-11-15T05:48:41.1520390Z shell: /usr/bin/bash -e {0}
+bench	Show score and repo tooling	2026-11-15T05:48:41.1525291Z ##[endgroup]
+bench	Show score and repo tooling	2026-11-15T05:48:41.1749320Z === score.json ===
+bench	Show score and repo tooling	2026-11-15T05:48:41.1772223Z {
+bench	Show score and repo tooling	2026-11-15T05:48:41.1773823Z   "score": 21042.18767317979,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1776044Z   "metrics": {
+bench	Show score and repo tooling	2026-11-15T05:48:41.1778146Z     "warmup_trial_seconds": [
+bench	Show score and repo tooling	2026-11-15T05:48:41.1781852Z       12.197548222,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1783771Z       12.19926027,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1790374Z       12.414545936,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1794106Z       12.822092852,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1797562Z       12.562530287
+bench	Show score and repo tooling	2026-11-15T05:48:41.1800947Z     ],
+bench	Show score and repo tooling	2026-11-15T05:48:41.1803598Z     "trial_seconds": [
+bench	Show score and repo tooling	2026-11-15T05:48:41.1805732Z       12.554505332,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1808360Z       12.493242568,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1816844Z       12.314718348,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1824952Z       12.382734506,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1833536Z       12.408289389,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1835698Z       12.412059999,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1839470Z       12.831123732,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1844748Z       12.186715278,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1848334Z       12.252098404,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1851364Z       12.524108717,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1854453Z       12.413531059,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1862188Z       12.664770924,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1867667Z       12.256961326,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1870247Z       12.532141713,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1877369Z       12.56085366,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1886310Z       12.333222306,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1886688Z       13.071342935,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1895191Z       12.313891552,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1903388Z       12.403445434,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1908762Z       12.382043179,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1909155Z       12.184389519,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1911210Z       12.58770884,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1911743Z       12.575120854,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1915684Z       12.75252062,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1925735Z       12.305604116,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1929130Z       12.824752454,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1937007Z       13.016519171,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1938643Z       12.706506429000001,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1939160Z       12.506015815,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1939683Z       12.422797919
+bench	Show score and repo tooling	2026-11-15T05:48:41.1943117Z     ],
+bench	Show score and repo tooling	2026-11-15T05:48:41.1943617Z     "p10_seconds": 12.256475033800001,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1944287Z     "median_seconds": 12.4580202435,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1947796Z     "aggregate_compressions_per_second": 20961.808472503904,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1953819Z     "p90_p10_latency_ratio": 1.046417468842476,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1957697Z     "batch_size": 262144,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1960036Z     "warmup_runs": 5,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1962024Z     "measured_runs": 30,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1965158Z     "threads": 4,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1967646Z     "proof_bytes": 438863,
+bench	Show score and repo tooling	2026-11-15T05:48:41.1969555Z     "verified": true
+bench	Show score and repo tooling	2026-11-15T05:48:41.1973337Z   }
+bench	Show score and repo tooling	2026-11-15T05:48:41.1979584Z }
+bench	Show score and repo tooling	2026-11-15T05:48:41.2242513Z SCORE: 21042.18767317979
+bench	Show score and repo tooling	2026-11-15T05:48:41.2244929Z median_s: 12.4580202435 threads: 4 proof_B: 438863 verified: True
+bench	Show score and repo tooling	2026-11-15T05:48:41.2291105Z === scripts/ (for differential tooling) ===
+bench	Show score and repo tooling	2026-11-15T05:48:41.2401475Z total 28
+bench	Show score and repo tooling	2026-11-15T05:48:41.2406895Z drwxr-xr-x  2 runner runner  4096 Nov 15 04:24 .
+bench	Show score and repo tooling	2026-11-15T05:48:41.2412900Z drwxr-xr-x 11 runner runner  4096 Nov 15 05:48 ..
+bench	Show score and repo tooling	2026-11-15T05:48:41.2417377Z -rwxr-xr-x  1 runner runner  3217 Nov 15 04:24 profile-aggregate.sh
+bench	Show score and repo tooling	2026-11-15T05:48:41.2422854Z -rw-r--r--  1 runner runner 14320 Nov 15 04:24 soundness.py
+bench	Show score and repo tooling	2026-11-15T05:48:41.2426214Z === tests available ===
+bench	Show score and repo tooling	2026-11-15T05:48:41.2454124Z crates/flock-prover/tests/:
+bench	Show score and repo tooling	2026-11-15T05:48:41.2455958Z verifier_roundtrip.rs
+bench	Job summary	﻿2026-11-15T05:48:41.2684223Z ##[group]Run {
+bench	Job summary	2026-11-15T05:48:41.2686584Z ^[[36;1m{^[[0m
+bench	Job summary	2026-11-15T05:48:41.2688943Z ^[[36;1m  echo "## Result — **directional A/B only, NOT comparable to the official 16-vCPU Sapphire Rapids score**"^[[0m
+bench	Job summary	2026-11-15T05:48:41.2689893Z ^[[36;1m  echo^[[0m
+bench	Job summary	2026-11-15T05:48:41.2692059Z ^[[36;1m  echo "- inputs: log2=18 threads=4 warmup=5 runs=30 patch_file= patch_url="^[[0m
+bench	Job summary	2026-11-15T05:48:41.2695313Z ^[[36;1m  echo "- challenge commit: \`03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd\`"^[[0m
+bench	Job summary	2026-11-15T05:48:41.2700581Z ^[[36;1m  echo '```json'^[[0m
+bench	Job summary	2026-11-15T05:48:41.2708377Z ^[[36;1m  cat score.json 2>/dev/null || echo "NO SCORE (run failed)"^[[0m
+bench	Job summary	2026-11-15T05:48:41.2713332Z ^[[36;1m  echo '```'^[[0m
+bench	Job summary	2026-11-15T05:48:41.2717221Z ^[[36;1m} >> "$GITHUB_STEP_SUMMARY"^[[0m
+bench	Job summary	2026-11-15T05:48:41.2777548Z shell: /usr/bin/bash -e {0}
+bench	Job summary	2026-11-15T05:48:41.2784676Z ##[endgroup]
+bench	Upload artifacts	﻿2026-11-15T05:48:41.3776655Z ##[group]Run actions/upload-artifact@v4
+bench	Upload artifacts	2026-11-15T05:48:41.3785781Z with:
+bench	Upload artifacts	2026-11-15T05:48:41.3799282Z   name: bench-results-43676621687
+bench	Upload artifacts	2026-11-15T05:48:41.3804334Z   path: score.json
+bench	Upload artifacts	bench.log
+bench	Upload artifacts	benchmark-results/summary.md
+bench	Upload artifacts	
+bench	Upload artifacts	2026-11-15T05:48:41.3810280Z   if-no-files-found: warn
+bench	Upload artifacts	2026-11-15T05:48:41.3813846Z   compression-level: 6
+bench	Upload artifacts	2026-11-15T05:48:41.3817064Z   overwrite: false
+bench	Upload artifacts	2026-11-15T05:48:41.3818945Z   include-hidden-files: false
+bench	Upload artifacts	2026-11-15T05:48:41.3823007Z ##[endgroup]
+bench	Upload artifacts	2026-11-15T05:48:41.7371565Z (node:5500) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+bench	Upload artifacts	2026-11-15T05:48:41.7377530Z (Use `node --trace-deprecation ...` to show where the warning was created)
+bench	Upload artifacts	2026-11-15T05:48:41.7483190Z Multiple search paths detected. Calculating the least common ancestor of all paths
+bench	Upload artifacts	2026-11-15T05:48:41.7491974Z The least common ancestor is /home/runner/work/flock-actions/flock-actions. This will be the root directory of the artifact
+bench	Upload artifacts	2026-11-15T05:48:41.7498450Z With the provided path, there will be 3 files uploaded
+bench	Upload artifacts	2026-11-15T05:48:41.7504793Z Artifact name is valid!
+bench	Upload artifacts	2026-11-15T05:48:41.7505321Z Root directory input is valid!
+bench	Upload artifacts	2026-11-15T05:48:41.9492303Z Beginning upload of artifact content to blob storage
+bench	Upload artifacts	2026-11-15T05:48:41.9771285Z (node:5500) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+bench	Upload artifacts	2026-11-15T05:48:42.0103150Z Uploaded bytes 5972
+bench	Upload artifacts	2026-11-15T05:48:42.0311900Z Finished uploading artifact content to blob storage!
+bench	Upload artifacts	2026-11-15T05:48:42.0313259Z SHA256 digest of uploaded artifact zip is 18368ad3e3b861f266404a922bc397826a87e6eefb41c87b88179adaeaee5dfc
+bench	Upload artifacts	2026-11-15T05:48:42.0314725Z Finalizing artifact upload
+bench	Upload artifacts	2026-11-15T05:48:42.3527995Z Artifact bench-results-43676621687.zip successfully finalized. Artifact ID 14149620359
+bench	Upload artifacts	2026-11-15T05:48:42.3530494Z Artifact bench-results-43676621687 has been successfully uploaded! Final size is 5972 bytes. Artifact ID is 14149620359
+bench	Upload artifacts	2026-11-15T05:48:42.3535615Z Artifact download URL: https://github.com/pillze/flock-actions/actions/runs/43676621687/artifacts/14149620359
+bench	Post Cache cargo + rustup	﻿2026-11-15T05:48:42.3774600Z Post job cleanup.
+bench	Post Cache cargo + rustup	2026-11-15T05:48:42.4976918Z (node:5512) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+bench	Post Cache cargo + rustup	2026-11-15T05:48:42.4978448Z (Use `node --trace-deprecation ...` to show where the warning was created)
+bench	Post Cache cargo + rustup	2026-11-15T05:48:42.5284929Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/flock-actions/flock-actions --files-from manifest.txt --use-compress-program zstdmt
+bench	Post Cache cargo + rustup	2026-11-15T05:49:00.4457983Z Failed to save: Unable to reserve cache with key flock-03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd-v1, another job may be creating this cache.
+bench	Post Checkout challenge repo (pinned commit)	﻿2026-11-15T05:49:00.5051385Z Post job cleanup.
+bench	Post Checkout challenge repo (pinned commit)	2026-11-15T05:49:00.5975560Z [command]/usr/bin/git version
+bench	Post Checkout challenge repo (pinned commit)	2026-11-15T05:49:00.6025874Z git version 2.56.1
+bench	Post Checkout challenge repo (pinned commit)	2026-11-15T05:49:00.6118931Z Temporarily overriding HOME='/home/runner/work/_temp/aa685e9b-7370-400f-95c2-f0db03ebba45' before making global git config changes
+bench	Post Checkout challenge repo (pinned commit)	2026-11-15T05:49:00.6120356Z Adding repository directory to the temporary git global config as a safe directory
+bench	Post Checkout challenge repo (pinned commit)	2026-11-15T05:49:00.6121605Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/flock-actions/flock-actions
+bench	Post Checkout challenge repo (pinned commit)	2026-11-15T05:49:00.6150351Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+bench	Post Checkout challenge repo (pinned commit)	2026-11-15T05:49:00.6233776Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+bench	Post Checkout challenge repo (pinned commit)	2026-11-15T05:49:00.6846571Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+bench	Post Checkout challenge repo (pinned commit)	2026-11-15T05:49:00.6894719Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+bench	Post Checkout challenge repo (pinned commit)	2026-11-15T05:49:00.7190071Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+bench	Post Checkout challenge repo (pinned commit)	2026-11-15T05:49:00.7226478Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+bench	Complete job	﻿2026-11-15T05:49:00.7726064Z Cleaning up orphan processes
+bench	Complete job	2026-11-15T05:49:00.8395830Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

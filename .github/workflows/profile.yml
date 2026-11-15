@@ -66,19 +66,54 @@ jobs:
           FLOCK_GAP_TIMING: "1"
           FLOCK_ABS_TRACE: "1"
           RAYON_NUM_THREADS: ${{ github.event.inputs.threads }}
+          LOG2: ${{ github.event.inputs.log2 }}
         run: |
           source "$HOME/.cargo/env"
           WORKER=target/challenge-candidate/challenge/flock-benchmark-worker
           ls -la "$WORKER"
           rm -f worker-trace.log
-          for SEED in $(echo "${{ github.event.inputs.seeds }}" | tr ',' ' '); do
-            echo "=== SEED $SEED (threads=${{ github.event.inputs.threads }}) ===" | tee -a worker-trace.log
-            echo "$SEED" | timeout 900 "$WORKER" "${{ github.event.inputs.log2 }}" \
-              /tmp/ready-file /tmp/proof.bin 2>&1 | tee -a worker-trace.log \
-              || echo "(worker exit=$? for seed $SEED)" | tee -a worker-trace.log
-            echo "--- proof ---"; ls -la /tmp/proof.bin 2>/dev/null | tee -a worker-trace.log
-            rm -f /tmp/proof.bin /tmp/ready-file
-          done
+          echo "=== MODE A: seed pre-buffered (stdin before worker start) ===" | tee -a worker-trace.log
+          SEED=$(echo "${{ github.event.inputs.seeds }}" | cut -d, -f1)
+          echo "$SEED" | timeout 900 "$WORKER" "${{ github.event.inputs.log2 }}" \
+            /tmp/ready-file /tmp/proof.bin 2>&1 | tee -a worker-trace.log \
+            || echo "(worker exit=$?)" | tee -a worker-trace.log
+          ls -la /tmp/proof.bin 2>/dev/null | tee -a worker-trace.log
+          rm -f /tmp/proof.bin /tmp/ready-file
+
+          echo "=== MODE B: harness protocol (spawn, wait for ready, then seed + timer) ===" | tee -a worker-trace.log
+          python3 - <<'PYEOF' 2>&1 | tee -a worker-trace.log
+          import subprocess, time, os, random, hashlib
+          worker = "target/challenge-candidate/challenge/flock-benchmark-worker"
+          log2 = os.environ.get("LOG2", "18")
+          for trial in range(2):
+              random.seed()
+              seed = random.getrandbits(64)
+              ready = f"/tmp/ready-{trial}"
+              proof = f"/tmp/proof-{trial}"
+              for p in (ready, proof):
+                  if os.path.exists(p): os.remove(p)
+              env = dict(os.environ)
+              t0 = time.perf_counter()
+              p = subprocess.Popen([worker, log2, ready, proof], env=env,
+                                   stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                   stderr=subprocess.STDOUT)
+              while not os.path.exists(ready):
+                  if p.poll() is not None: break
+                  time.sleep(0.001)
+              t_ready = time.perf_counter() - t0
+              p.stdin.write(f"{seed}\n".encode()); p.stdin.flush()
+              while not os.path.exists(proof):
+                  if p.poll() is not None: break
+                  time.sleep(0.001)
+              t_proof = time.perf_counter() - t0
+              size = os.path.getsize(proof) if os.path.exists(proof) else -1
+              h = hashlib.sha256(open(proof,'rb').read()).hexdigest()[:16] if size>0 else "-"
+              p.kill()
+              print(f"trial {trial}: seed={seed} ready_after={t_ready:.3f}s "
+                    f"seed_to_proof={t_proof-t_ready:.3f}s total={t_proof:.3f}s "
+                    f"proof={size}B sha={h}")
+          PYEOF
+          rm -f /tmp/proof-* /tmp/ready-*
 
       - name: Phase summary
         if: always()
