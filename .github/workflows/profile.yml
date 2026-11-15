@@ -157,8 +157,8 @@ jobs:
           rm -rf /tmp/scratch-p && mkdir -p /tmp/scratch-p
           SEED=$(echo "${{ github.event.inputs.seeds }}" | cut -d, -f1)
           echo "=== perf stat (whole worker run) ==="
-          echo "$SEED" | timeout 600 perf stat -e cycles,instructions,branches,branch-misses,cache-references,cache-misses,LLC-load-misses,LLC-store-misses,dTLB-load-misses,uops_dispatched_port.port_0,uops_dispatched_port.port_1,uops_dispatched_port.port_2,uops_dispatched_port.port_3,uops_dispatched_port.port_4,uops_dispatched_port.port_5,uops_dispatched_port.port_6,uops_dispatched_port.port_7,uops_dispatched_port.port_8,uops_dispatched_port.port_9,uops_dispatched_port.port_10 \
-            -- "$WORKER" "${{ github.event.inputs.log2 }}" /tmp/ready-p /tmp/proof-p 2>&1 | tail -40 || echo "(perf stat failed)"
+          echo "$SEED" | timeout 600 perf stat -e cycles,instructions,branches,branch-misses,cache-misses,LLC-load-misses,dTLB-load-misses \
+            -- "$WORKER" "${{ github.event.inputs.log2 }}" /tmp/ready-p /tmp/proof-p 2>&1 | tail -25 || echo "(perf stat failed — non-fatal)"
           rm -f /tmp/proof-p /tmp/ready-p
           echo "=== perf record hotspots ==="
           rm -rf /tmp/scratch-p && mkdir -p /tmp/scratch-p
