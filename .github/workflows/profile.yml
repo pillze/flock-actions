@@ -1,0 +1,104 @@
+name: flock-profile
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: "Challenge repo commit to profile"
+        required: false
+        default: "03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd"
+      patch_file:
+        description: "Optional patch file path in THIS repo to apply (git apply)"
+        required: false
+        default: ""
+      log2:
+        description: "BLAKE3_LOG2"
+        required: false
+        default: "18"
+      threads:
+        description: "RAYON_NUM_THREADS / worker threads"
+        required: false
+        default: "4"
+      seeds:
+        description: "Comma-separated seeds to prove"
+        required: false
+        default: "1234567,987654321"
+
+jobs:
+  profile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Runner info
+        run: |
+          lscpu | grep -E 'Model name|^CPU\(s\)' || true; free -h | head -2
+
+      - name: Checkout challenge repo (pinned commit)
+        uses: actions/checkout@v4
+        with:
+          repository: Layr-Labs/flock-challenge-multi
+          ref: ${{ github.event.inputs.commit }}
+          persist-credentials: false
+
+      - name: Apply patch (optional)
+        if: ${{ github.event.inputs.patch_file != '' }}
+        run: |
+          set -e
+          git apply --check "${{ github.event.inputs.patch_file }}"
+          git apply "${{ github.event.inputs.patch_file }}"
+          git diff --stat
+
+      - name: Cache cargo + rustup
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.rustup/toolchains
+          key: flock-${{ github.event.inputs.commit }}-v1
+          restore-keys: flock-
+
+      - name: Setup (build worker)
+        run: ./setup.sh
+
+      - name: Direct worker phase traces
+        env:
+          FLOCK_GAP_TIMING: "1"
+          FLOCK_ABS_TRACE: "1"
+          FLOCK_REQUIRE_SANDBOX: "0"
+        run: |
+          source "$HOME/.cargo/env"
+          WORKER=target/challenge-candidate/challenge/flock-benchmark-worker
+          ls -la "$WORKER"
+          mkdir -p /tmp/wscratch
+          for SEED in $(echo "${{ github.event.inputs.seeds }}" | tr ',' ' '); do
+            echo "=== SEED $SEED ==="
+            rm -rf /tmp/wscratch && mkdir -p /tmp/wscratch
+            echo "$SEED" | timeout 600 "$WORKER" /tmp/wscratch /tmp/wscore.json /tmp/wsummary.md \
+              "${{ github.event.inputs.log2 }}" "${{ github.event.inputs.threads }}" 0 1 \
+              2>&1 | tee -a worker-trace.log || echo "(worker exit=$? for seed $SEED)"
+            echo "--- proof files ---"; ls -la /tmp/wscratch/ 2>/dev/null | head -5
+            echo "--- score ---"; cat /tmp/wscore.json 2>/dev/null | head -c 600; echo
+            rm -f /tmp/wscore.json
+          done
+
+      - name: Phase summary
+        if: always()
+        run: |
+          {
+            echo "## Worker phase traces — **directional only (4 vCPU), NOT comparable to official 16-vCPU SPR**"
+            echo
+            echo '```'
+            grep -E "^\[gap\]" worker-trace.log 2>/dev/null | head -120 || echo "no gap lines"
+            echo '```'
+            echo '```'
+            grep -E "^\[abs\]" worker-trace.log 2>/dev/null | tail -60 || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload trace
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: worker-trace-${{ github.run_id }}
+          path: worker-trace.log
