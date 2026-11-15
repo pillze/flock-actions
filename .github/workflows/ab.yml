@@ -39,6 +39,14 @@ on:
         description: "Interleaved ABBA rounds"
         required: false
         default: "3"
+      base_extra_env:
+        description: "FLOCK_* env applied to the BASE arm only"
+        required: false
+        default: ""
+      cand_extra_env:
+        description: "FLOCK_* env applied to the CANDIDATE arm only"
+        required: false
+        default: ""
 
 jobs:
   ab:
@@ -132,10 +140,19 @@ jobs:
           L2="${{ github.event.inputs.log2 }}"; TH="${{ github.event.inputs.threads }}"
           WU="${{ github.event.inputs.warmup }}"; RN="${{ github.event.inputs.runs }}"
           RD="${{ github.event.inputs.rounds }}"
+          BASE_EXTRA_ENV="${{ github.event.inputs.base_extra_env }}"
+          CAND_EXTRA_ENV="${{ github.event.inputs.cand_extra_env }}"
           mkdir -p results /tmp/scratch
           run_arm() {  # $1=tag
             rm -rf /tmp/scratch; mkdir -p /tmp/scratch
             rm -f /tmp/score-$1.json
+            ENVVAR="BASE_EXTRA_ENV"; [ "$1" = "cand" ] && ENVVAR="CAND_EXTRA_ENV"
+            for kv in ${!ENVVAR}; do
+              case "$kv" in
+                FLOCK_*=*) export "$kv"; echo "arm $1 extra env: $kv";;
+                *) echo "arm $1 ignored (not FLOCK_*): $kv";;
+              esac
+            done
             "$VERIFIER" "/tmp/worker-$1" /tmp/scratch "/tmp/score-$1.json" \
               /tmp/summary-$1.md "$L2" "$TH" "$WU" "$RN"
             cp "/tmp/score-$1.json" "results/score-$1-r${ROUND}.json"
@@ -171,7 +188,7 @@ jobs:
           print(f"inputs: log2=${{ github.event.inputs.log2 }} threads=${{ github.event.inputs.threads }} "
                 f"warmup=${{ github.event.inputs.warmup }} runs=${{ github.event.inputs.runs }} "
                 f"rounds=${{ github.event.inputs.rounds }} cand_commit=`${{ github.event.inputs.cand_commit }}` "
-                f"patch_file=`${{ github.event.inputs.patch_file }}`")
+                f"patch_file=`${{ github.event.inputs.patch_file }}` base_env=`${{ github.event.inputs.base_extra_env }}` cand_env=`${{ github.event.inputs.cand_extra_env }}`")
           print()
           print("| arm | per-round scores | median | median trial s |")
           print("|---|---|---|---|")
