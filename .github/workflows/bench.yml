@@ -1,0 +1,139 @@
+name: flock-bench
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: "Challenge repo commit to benchmark"
+        required: false
+        default: "03e70fa0237ef89a66bc2ff63fd3e0d75057a0cd"
+      patch_file:
+        description: "Optional patch file path in THIS repo to apply (git apply)"
+        required: false
+        default: ""
+      patch_url:
+        description: "Optional raw URL to a patch file to apply"
+        required: false
+        default: ""
+      log2:
+        description: "BLAKE3_LOG2 (18 = ranked batch size)"
+        required: false
+        default: "18"
+      threads:
+        description: "BLAKE3_THREADS (4 = runner vCPU count)"
+        required: false
+        default: "4"
+      warmup:
+        description: "BLAKE3_WARMUP_RUNS"
+        required: false
+        default: "5"
+      runs:
+        description: "BLAKE3_RUNS"
+        required: false
+        default: "30"
+      require_sandbox:
+        description: "FLOCK_REQUIRE_SANDBOX (1 = enforce bwrap)"
+        required: false
+        default: "0"
+
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Runner hardware info
+        run: |
+          echo "=== CPU ==="; lscpu | grep -E 'Model name|^CPU\(s\)|Thread|Core|Socket' || true
+          echo "=== needed flags ==="; for f in avx512f avx512dq avx512vbmi gfni vaes vpclmulqdq; do
+            grep -q "$f" /proc/cpuinfo && echo "$f: yes" || echo "$f: NO"; done
+          echo "=== MEM ==="; free -h
+
+      - name: Checkout challenge repo (pinned commit)
+        uses: actions/checkout@v4
+        with:
+          repository: Layr-Labs/flock-challenge-multi
+          ref: ${{ github.event.inputs.commit }}
+          persist-credentials: false
+
+      - name: Apply patch (optional)
+        if: ${{ github.event.inputs.patch_file != '' || github.event.inputs.patch_url != '' }}
+        run: |
+          set -e
+          if [ -n "${{ github.event.inputs.patch_url }}" ]; then
+            curl -fsSL "${{ github.event.inputs.patch_url }}" -o /tmp/attempt.patch
+          else
+            cp "${{ github.event.inputs.patch_file }}" /tmp/attempt.patch
+          fi
+          echo "=== patch stat ==="
+          git apply --stat /tmp/attempt.patch || true
+          git apply --check /tmp/attempt.patch
+          git apply /tmp/attempt.patch
+          echo "=== changed files ==="
+          git diff --stat
+
+      - name: Install bwrap
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq bubblewrap
+
+      - name: Cache cargo + rustup
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.rustup/toolchains
+          key: flock-${{ github.event.inputs.commit }}-v1
+          restore-keys: flock-
+
+      - name: Setup
+        run: ./setup.sh
+
+      - name: Benchmark
+        env:
+          BLAKE3_LOG2: ${{ github.event.inputs.log2 }}
+          BLAKE3_THREADS: ${{ github.event.inputs.threads }}
+          BLAKE3_WARMUP_RUNS: ${{ github.event.inputs.warmup }}
+          BLAKE3_RUNS: ${{ github.event.inputs.runs }}
+          FLOCK_REQUIRE_SANDBOX: ${{ github.event.inputs.require_sandbox }}
+          CC: /usr/bin/cc
+        run: |
+          set -o pipefail
+          ./benchmark.sh 2>&1 | tee bench.log
+
+      - name: Show score and repo tooling
+        if: always()
+        run: |
+          echo "=== score.json ==="
+          cat score.json 2>/dev/null || echo "NO SCORE (run failed)"
+          if [ -f score.json ]; then
+            python3 -c "
+import json; d=json.load(open('score.json')); m=d['metrics']
+print(f\"SCORE: {d['score']:.2f}\")
+print(f\"median: {m['median_seconds']:.6f}s threads: {m['threads']} proof: {m['proof_bytes']}B verified: {m['verified']}\")"
+          fi
+          echo "=== scripts/ (for differential tooling) ==="
+          ls -la scripts/ 2>/dev/null || true
+          echo "=== tests available ==="
+          ls crates/flock-prover/tests/ crates/flock-core/tests/ 2>/dev/null || true
+
+      - name: Job summary
+        if: always()
+        run: |
+          {
+            echo "## Result — **directional A/B only, NOT comparable to the official 16-vCPU Sapphire Rapids score**"
+            echo
+            echo "- inputs: log2=${{ github.event.inputs.log2 }} threads=${{ github.event.inputs.threads }} warmup=${{ github.event.inputs.warmup }} runs=${{ github.event.inputs.runs }} patch_file=${{ github.event.inputs.patch_file }} patch_url=${{ github.event.inputs.patch_url }}"
+            echo "- challenge commit: \`${{ github.event.inputs.commit }}\`"
+            echo '```json'
+            cat score.json 2>/dev/null || echo "NO SCORE (run failed)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bench-results-${{ github.run_id }}
+          path: |
+            score.json
+            bench.log
+            benchmark-results/summary.md
